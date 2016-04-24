@@ -11,7 +11,7 @@ const requireSignin = passport.authenticate('local', { session: false });
 module.exports = function (app) {
 
 	app.get('/', requireAuth, function(req, res) {
-		res.send({ hi: 'there'});
+		res.send({ message: 'Super secret code is 1b94n4'});
 	});
 
 	app.post('/signin', requireSignin, Authentication.signin); //Before the user can actually sign in, the passwords are compared in the local stratgey requireSignin
