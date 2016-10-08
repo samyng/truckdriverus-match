@@ -1,0 +1,22 @@
+$red: red;
+
+.error {
+	color: $red;
+}
+
+h3 {
+	margin-top: 1em !important;
+}
+
+#signInMessage {
+	margin-top: 2em;
+	ul {
+		list-style-type: none;
+		li {
+			padding: 15px 0;
+		}
+		.fa-cube {
+			margin-right: 10px;
+		}
+	}
+}

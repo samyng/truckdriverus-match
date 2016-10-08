@@ -1,0 +1,33 @@
+var path = require('path');
+
+module.exports = {
+  devtool: 'cheap-module-source-map',
+  entry: path.join(__dirname, 'public', 'index.js'),
+  output: {
+    path: path.join(__dirname, 'public'),
+    filename: "bundle.js"
+  },
+  module: {
+   loaders: [
+     {
+       test: [/\.js$/, /\.jsx$/],
+       exclude: /(node_modules)/,
+       loader: 'babel',
+       query: {
+         presets: ['es2015', 'react']
+       }
+     },
+     {
+       test: /\.(png|jpg|jpeg)$/,
+       loader: 'url-loader?limit=20000'
+       //if an image is bigger than 20000kb
+       //a direct url will be created for the
+       //image asset
+     },
+     {
+       test: /\.scss$/,
+       loader: 'style-loader!css-loader!sass-loader'
+     }
+   ]
+ }
+};
