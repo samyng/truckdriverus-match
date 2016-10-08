@@ -1,7 +1,6 @@
 //Main starting point of the application
 
 const express = require('express');
-const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
@@ -10,6 +9,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const config = require('./backend/config');
 const path = require('path');
+const http = require('http');
 
 // DB Setup
 
@@ -38,10 +38,14 @@ app.get('*', function (req, res) {
 	res.sendFile(path.resolve(__dirname + '/public/index.html'));
 });
 
-//Server Setup
+//Server Setup and Initialization
 
-const port = process.env.PORT || 3000;
-// const server = http.createServer(app); //creates an http server that can receive requests and forward them to app (express())
+const PORT = process.env.PORT || 3000;
 
-app.listen(port);
-console.log('Server listening on port:', port);
+//Define http server below and set up
+
+const SERVER = http.createServer(app); //creates an http server that can receive requests and forward them to app (express())
+
+SERVER.listen(PORT, function() {
+	console.log('Server listening on port:', PORT);
+});
