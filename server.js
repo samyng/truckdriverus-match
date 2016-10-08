@@ -41,7 +41,7 @@ app.get('*', function (req, res) {
 //Server Setup
 
 const port = process.env.PORT || 3000;
-const server = http.createServer(app); //creates an http server that can receive requests and forward them to app (express())
+// const server = http.createServer(app); //creates an http server that can receive requests and forward them to app (express())
 
-server.listen(port);
+app.listen(port);
 console.log('Server listening on port:', port);
