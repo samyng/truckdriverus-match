@@ -6,7 +6,9 @@ const bcrypt = require('bcrypt-nodejs');
 
 const userSchema = new Schema({
 	email: { type: String, unique: true, lowercase: true }, //every email must be unique and will be converted to lowercase before being saved
-	password: String
+	password: String,
+	resetPasswordToken: String,
+	resetPasswordExpires: Date
 });
 
 // On Save Hook, encrypt password
