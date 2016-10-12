@@ -4,7 +4,7 @@ import { resetPassword, authError } from '../../actions';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
 
-class ForgotPassword extends Component {
+class ResetPassword extends Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -103,4 +103,4 @@ function mapStateToProps(state) {
 				 };
 }
 
-export default connect(mapStateToProps, { resetPassword, authError })(ForgotPassword);
+export default connect(mapStateToProps, { resetPassword, authError })(ResetPassword);
