@@ -54,3 +54,25 @@ export function authError(error) {
 		payload: error
 	};
 }
+
+export function resetPassword(props, token) {
+	return (dispatch) => {
+		const jsonProps = JSON.stringify(props);
+
+		axios.post(`/resetPassword/${token}`, jsonProps)
+			.then(() => {
+				dispatch({ type: RESET_PASSWORD });
+			})
+			.catch(error => {
+				dispatch({ type: AUTH_ERROR, payload: error.data });
+			});
+	}
+
+
+
+	return {
+		type: RESET_PASSWORD,
+		payload: request
+	};
+
+}

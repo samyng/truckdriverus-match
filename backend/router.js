@@ -8,9 +8,13 @@ const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 
+//import user model
+const User = require('./models/user');
+
 // config settings for sendgrid account
 const config = require('./config');
 const async = require('async');
+
 // const parallel = require('async/parallel');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
@@ -71,7 +75,7 @@ module.exports = function (app) {
 									 We received a request to reset your password.
 									 \n
 									 To start the process, please click the following link:
-									 http://${req.headers.host}/forgot/${token}
+									 http://${req.headers.host}/reset-password/${token}
 									 \n
 									 If the above link doesn’t take you to our password reset page,
 									 copy and paste the URL into the search bar of a new browser window.
@@ -92,6 +96,53 @@ module.exports = function (app) {
 					res.status(200).json("Email sent");
 				});
 		}); // end POST route '/forgotPassword'
+
+		// POST resetPassword route actually changes the user's password in the database
+		app.post('/resetPassword/:token', function(req, res) {
+
+		  async.waterfall([
+		    function(done) {
+
+					User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+		        if (!user) {
+							res.status(401).json("Reset token may have expired");
+		        }
+
+		        user.password = req.body.password;
+		        user.resetPasswordToken = undefined;
+		        user.resetPasswordExpires = undefined;
+
+		        user.save(function(err) {
+		          if (err) { next(err); }
+							done(err, user);
+		        });
+		      });
+
+		    },
+		    function(user, done) {
+		      var smtpTransport = nodemailer.createTransport('SMTP', {
+		        service: 'SendGrid',
+		        auth: {
+		          user: config.sendGridUser,
+		          pass: config.sendGridPass
+		        }
+		      });
+		      var mailOptions = {
+		        to: user.email,
+		        from: 'mjuice@uga.edu',
+		        subject: 'Password Changed',
+		        text: `Hello,\n
+									 This is a confirmation that the password for your account, ${user.email},
+									 has just been changed.`
+		      };
+		      smtpTransport.sendMail(mailOptions, function(err) {
+		        done(err);
+		      });
+		    }
+		  ], function(err) {
+		    res.status(200).json("Your password has been successfully reset!");
+		  });
+		});
 
 
 } // end module.exports
