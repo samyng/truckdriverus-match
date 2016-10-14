@@ -4,7 +4,7 @@ const { User } = require('./models/user');
 // config settings for sendgrid account
 const config = require('./config');
 const _ = require('lodash');
-const async = require('async');
+const waterfall = require('async/waterfall');
 // const parallel = require('async/parallel');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
@@ -69,9 +69,7 @@ module.exports = function (app) {
 	// email will contain a link to the '/reset/:token' route below
 	app.post('/forgotPassword', function(req, res, next) {
 
-		var queryParams = req.query;
-
-		async.waterfall([
+		waterfall([
 			// generate reset token
 			function(done) {
 				crypto.randomBytes(20, function(err, buf) {
@@ -85,7 +83,7 @@ module.exports = function (app) {
 					// check to see if the user exists
 					if (!user) {
 						// user doesn't exist in database
-						res.status(404).json("No user with that email exists");
+						return res.status(404).send();
 					}
 					// user exists, assign token with expiration date
 					user.resetPasswordToken = token;
@@ -99,7 +97,6 @@ module.exports = function (app) {
 				});
     	},
 			function(token, user, done) {
-
 			    var smtpTransport = nodemailer.createTransport('SMTP', {
 			      service: 'SendGrid',
 			      auth: {
@@ -134,19 +131,19 @@ module.exports = function (app) {
 				function(err) {
 					// handle error
 					if (err) return next(err);
-					res.status(200).json("Email sent");
+					res.status(200).send();
 				});
 		}); // end POST route '/forgotPassword'
 
 		// POST resetPassword route actually changes the user's password in the database
 		app.post('/resetPassword/:token', function(req, res) {
 
-		  async.waterfall([
+		  waterfall([
 		    function(done) {
 
 					User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 		        if (!user) {
-							res.status(401).json("Reset token may have expired");
+							res.status(401).send();
 		        }
 
 		        user.password = req.body.password;
@@ -161,6 +158,7 @@ module.exports = function (app) {
 
 		    },
 		    function(user, done) {
+
 		      var smtpTransport = nodemailer.createTransport('SMTP', {
 		        service: 'SendGrid',
 		        auth: {

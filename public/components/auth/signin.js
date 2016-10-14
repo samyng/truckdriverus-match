@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
+import { browserHistory } from 'react-router';
 import * as actions from '../../actions';
+import toastr from 'toastr';
 
 class Signin extends Component {
 
 	handleFormSubmit({ email, password }) {
-		this.props.loginUser({ email, password });
+		this.props.loginUser({ email, password }).then(() => {
+			toastr.success("You are logged in!");
+			browserHistory.push('/feature');
+		}).catch(() => {
+			toastr.warning("Could not log in");
+		})
 	}
 
 	renderAlert() {

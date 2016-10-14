@@ -9,10 +9,13 @@ export default function(state = {}, action) {
 			return { ...state, error: '', authenticated: true };
 
 		case types.UNAUTH_USER:
-			return { ...state, authenticated: false };
+			return { ...state, error: '', authenticated: false };
 
 		case types.AUTH_ERROR:
 			return { ...state, error: action.payload };
+
+		case types.FORGOT_PASSWORD:
+			return { ...state, error: '' };
 
 		case types.RESET_PASSWORD:
 			return { ...state, error: '' };
