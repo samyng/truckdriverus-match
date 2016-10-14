@@ -1,25 +1,17 @@
 //Main starting point of the application
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 const router = require('./backend/router');
-const mongoose = require('mongoose');
+// import mongoose with custom settings
+const { mongoose } = require('./backend/db/mongoose');
 const cors = require('cors');
 const config = require('./backend/config');
 const path = require('path');
 const http = require('http');
 
-// DB Setup
 
-mongoose.connect(config.database, function(err) {
-	if (err) {
-		console.log(err);
-	} else {
-		console.log("Connected to the database");
-	}
-});
 
 //Express App Setup
 

@@ -1,28 +1,69 @@
-//req is the object containing data about the incoming http request
-//res is the response that will be sent back to whoever made the request);
-
-const Authentication = require('./controllers/authentication');
-const passportService = require('./services/passport');
-const passport = require('passport');
-
-const requireAuth = passport.authenticate('jwt', { session: false });
-const requireSignin = passport.authenticate('local', { session: false });
-
 //import user model
-const User = require('./models/user');
+const { User } = require('./models/user');
 
 // config settings for sendgrid account
 const config = require('./config');
+const _ = require('lodash');
 const async = require('async');
-
 // const parallel = require('async/parallel');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
-module.exports = function (app) {
-	app.post('/signin', requireSignin, Authentication.signin); //Before the user can actually sign in, the passwords are compared in the local stratgey requireSignin
 
-	app.post('/signup', Authentication.signup);
+// import custom middleware
+const { authenticate } = require('./middleware/authenticate');
+
+module.exports = function (app) {
+	// create a new user
+	app.post('/users/signup', (req, res) => {
+	  // pull only the email and password properties from the
+	  // request body
+	  const body = _.pick(req.body, ['email', 'password']);
+
+	  // create a new user with the body variable above
+	  const user = new User(body);
+
+	  // save the new user
+	  user.save().then(() => {
+	    // generate auth token
+	    // generateAuthToken returns the token
+	    return user.generateAuthToken();
+	  }).then(token => {
+	    // send user to client with token in the header
+	    // The 'x-' prefix signifies a custom http header
+	    res.header('x-auth', token).send(user);
+	  }).catch(e => {
+	    res.status(400).send(e);
+	  });
+	});
+
+	// login a user
+	app.post('/users/login', (req, res) => {
+	  var body = _.pick(req.body, ['email', 'password']);
+
+	  User.findByCredentials(body.email, body.password).then(user => {
+	    return user.generateAuthToken().then(token => {
+	      res.header('x-auth', token).send(user);
+	    });
+	  }).catch(e => {
+	    res.status(400).send();
+	  });
+	});
+
+	// logout a user
+	app.delete('/users/logout', authenticate, (req, res) => {
+	  // authenticate middleware returns the user on the request object
+	  req.user.removeToken(req.token).then(() => {
+	    res.status(200).send();
+	  }, () => {
+	    res.status(400).send();
+	  });
+	});
+
+
+	app.get('/users/me', authenticate, (req, res) => {
+	  res.send(req.user);
+	});
 
 	// forgot password route, assigns user a reset token and sends email
 	// email will contain a link to the '/reset/:token' route below

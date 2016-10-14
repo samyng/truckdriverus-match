@@ -68,11 +68,11 @@
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
-	var _routes = __webpack_require__(296);
+	var _routes = __webpack_require__(297);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _types = __webpack_require__(322);
+	var _types = __webpack_require__(296);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20860,7 +20860,7 @@
 /* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module, global) {'use strict';
+	/* WEBPACK VAR INJECTION */(function(global, module) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -20872,7 +20872,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var root = module; /* global window */
+	var root; /* global window */
 
 
 	if (typeof self !== 'undefined') {
@@ -20881,13 +20881,15 @@
 	  root = window;
 	} else if (typeof global !== 'undefined') {
 	  root = global;
+	} else if (true) {
+	  root = module;
 	} else {
 	  root = Function('return this')();
 	}
 
 	var result = (0, _ponyfill2['default'])(root);
 	exports['default'] = result;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(174)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(174)(module)))
 
 /***/ },
 /* 174 */
@@ -30232,7 +30234,7 @@
 		return state;
 	};
 
-	var _types = __webpack_require__(322);
+	var _types = __webpack_require__(296);
 
 	var types = _interopRequireWildcard(_types);
 
@@ -30240,6 +30242,21 @@
 
 /***/ },
 /* 296 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var AUTH_USER = exports.AUTH_USER = 'AUTH_USER';
+	var UNAUTH_USER = exports.UNAUTH_USER = 'UNAUTH_USER';
+	var AUTH_ERROR = exports.AUTH_ERROR = 'AUTH_ERROR';
+	var FETCH_MESSAGE = exports.FETCH_MESSAGE = 'FETCH_MESSAGE';
+	var RESET_PASSWORD = exports.RESET_PASSWORD = 'RESET_PASSWORD';
+
+/***/ },
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30254,11 +30271,11 @@
 
 	var _reactRouter = __webpack_require__(187);
 
-	var _app = __webpack_require__(297);
+	var _app = __webpack_require__(298);
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _signin = __webpack_require__(303);
+	var _signin = __webpack_require__(304);
 
 	var _signin2 = _interopRequireDefault(_signin);
 
@@ -30274,9 +30291,9 @@
 
 	var _feature2 = _interopRequireDefault(_feature);
 
-	var _forgot_password = __webpack_require__(326);
+	var _reset_password = __webpack_require__(326);
 
-	var _forgot_password2 = _interopRequireDefault(_forgot_password);
+	var _reset_password2 = _interopRequireDefault(_reset_password);
 
 	var _require_auth = __webpack_require__(330);
 
@@ -30295,12 +30312,12 @@
 		_react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }),
-		_react2.default.createElement(_reactRouter.Route, { path: 'reset-password/:token', component: _forgot_password2.default }),
+		_react2.default.createElement(_reactRouter.Route, { path: 'reset-password/:token', component: _reset_password2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'feature', component: (0, _require_auth2.default)(_feature2.default) })
 		);
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30315,11 +30332,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _header = __webpack_require__(298);
+	var _header = __webpack_require__(299);
 
 	var _header2 = _interopRequireDefault(_header);
 
-	var _styles = __webpack_require__(299);
+	var _styles = __webpack_require__(300);
 
 	var styles = _interopRequireWildcard(_styles);
 
@@ -30360,7 +30377,7 @@
 		exports.default = App;
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30459,16 +30476,16 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(300);
+	var content = __webpack_require__(301);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(302)(content, {});
+	var update = __webpack_require__(303)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30485,10 +30502,10 @@
 	}
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(301)();
+	exports = module.exports = __webpack_require__(302)();
 	// imports
 
 
@@ -30499,7 +30516,7 @@
 
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports) {
 
 	/*
@@ -30555,7 +30572,7 @@
 
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30807,7 +30824,7 @@
 
 
 /***/ },
-/* 303 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30826,7 +30843,7 @@
 
 	var _reduxForm = __webpack_require__(250);
 
-	var _actions = __webpack_require__(304);
+	var _actions = __webpack_require__(305);
 
 	var actions = _interopRequireWildcard(_actions);
 
@@ -30855,7 +30872,7 @@
 				var email = _ref.email;
 				var password = _ref.password;
 
-				this.props.signinUser({ email: email, password: password });
+				this.props.loginUser({ email: email, password: password });
 			}
 		}, {
 			key: 'renderAlert',
@@ -30964,7 +30981,7 @@
 		}, mapStateToProps, actions)(Signin);
 
 /***/ },
-/* 304 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30972,23 +30989,23 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.signinUser = signinUser;
+	exports.loginUser = loginUser;
 	exports.signupUser = signupUser;
-	exports.signoutUser = signoutUser;
+	exports.logoutUser = logoutUser;
 	exports.authError = authError;
 	exports.resetPassword = resetPassword;
 
-	var _axios = __webpack_require__(305);
+	var _axios = __webpack_require__(306);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
 	var _reactRouter = __webpack_require__(187);
 
-	var _types = __webpack_require__(322);
+	var _types = __webpack_require__(296);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function signinUser(_ref) {
+	function loginUser(_ref) {
 		var email = _ref.email;
 		var password = _ref.password;
 
@@ -30996,12 +31013,13 @@
 		return function (dispatch) {
 			//Redux thunk will call this function with the dispatch method as a parameter (for use below) whenever signinUser is called
 			// Submit email/password to the server
-			_axios2.default.post('/signin', { email: email, password: password }).then(function (response) {
+			_axios2.default.post('/users/login', { email: email, password: password }).then(function (response) {
 				//If request is good...
 				// - Update state to indicate user is authenticated
 				dispatch({ type: _types.AUTH_USER });
+
 				// - Save the JWT token
-				localStorage.setItem('token', response.data.token);
+				localStorage.setItem('token', response.headers['x-auth']);
 				// - redirect to the route '/feature'
 				_reactRouter.browserHistory.push('/feature');
 			}).catch(function () {
@@ -31017,9 +31035,11 @@
 		var password = _ref2.password;
 
 		return function (dispatch) {
-			_axios2.default.post('/signup', { email: email, password: password }).then(function (response) {
+			_axios2.default.post('/users/signup', { email: email, password: password }).then(function (response) {
 				dispatch({ type: _types.AUTH_USER });
-				localStorage.setItem('token', response.data.token);
+
+				localStorage.setItem('token', response.headers['x-auth']);
+
 				_reactRouter.browserHistory.push('/feature');
 			}).catch(function (response) {
 				return dispatch(authError(response.data.error));
@@ -31027,9 +31047,12 @@
 		};
 	}
 
-	function signoutUser() {
+	function logoutUser() {
 
-		localStorage.removeItem('token'); //destroys the user's JWT stored in local storage
+		_axios2.default.delete('/users/logout').then(function () {
+			localStorage.removeItem('token'); //destroys the user's JWT stored in local storage
+			console.log("Logged out!");
+		});
 
 		return {
 			type: _types.UNAUTH_USER
@@ -31061,25 +31084,25 @@
 		}
 
 /***/ },
-/* 305 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(306);
+	module.exports = __webpack_require__(307);
 
 /***/ },
-/* 306 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(307);
-	var utils = __webpack_require__(308);
-	var dispatchRequest = __webpack_require__(309);
-	var InterceptorManager = __webpack_require__(317);
-	var isAbsoluteURL = __webpack_require__(318);
-	var combineURLs = __webpack_require__(319);
-	var bind = __webpack_require__(320);
-	var transformData = __webpack_require__(313);
+	var defaults = __webpack_require__(308);
+	var utils = __webpack_require__(309);
+	var dispatchRequest = __webpack_require__(310);
+	var InterceptorManager = __webpack_require__(318);
+	var isAbsoluteURL = __webpack_require__(319);
+	var combineURLs = __webpack_require__(320);
+	var bind = __webpack_require__(321);
+	var transformData = __webpack_require__(314);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -31164,7 +31187,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(321);
+	axios.spread = __webpack_require__(322);
 
 	// Provide aliases for supported request methods
 	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
@@ -31192,12 +31215,12 @@
 
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(308);
+	var utils = __webpack_require__(309);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -31263,7 +31286,7 @@
 
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31513,7 +31536,7 @@
 
 
 /***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -31535,10 +31558,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(310);
+	        adapter = __webpack_require__(311);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(310);
+	        adapter = __webpack_require__(311);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -31554,17 +31577,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 310 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(308);
-	var buildURL = __webpack_require__(311);
-	var parseHeaders = __webpack_require__(312);
-	var transformData = __webpack_require__(313);
-	var isURLSameOrigin = __webpack_require__(314);
-	var btoa = (typeof window !== 'undefined' && window.btoa) || __webpack_require__(315);
+	var utils = __webpack_require__(309);
+	var buildURL = __webpack_require__(312);
+	var parseHeaders = __webpack_require__(313);
+	var transformData = __webpack_require__(314);
+	var isURLSameOrigin = __webpack_require__(315);
+	var btoa = (typeof window !== 'undefined' && window.btoa) || __webpack_require__(316);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -31667,7 +31690,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(316);
+	    var cookies = __webpack_require__(317);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ?
@@ -31733,12 +31756,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 311 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(308);
+	var utils = __webpack_require__(309);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -31806,12 +31829,12 @@
 
 
 /***/ },
-/* 312 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(308);
+	var utils = __webpack_require__(309);
 
 	/**
 	 * Parse headers into an object
@@ -31849,12 +31872,12 @@
 
 
 /***/ },
-/* 313 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(308);
+	var utils = __webpack_require__(309);
 
 	/**
 	 * Transform the data for a request or a response
@@ -31875,12 +31898,12 @@
 
 
 /***/ },
-/* 314 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(308);
+	var utils = __webpack_require__(309);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -31949,7 +31972,7 @@
 
 
 /***/ },
-/* 315 */
+/* 316 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31991,12 +32014,12 @@
 
 
 /***/ },
-/* 316 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(308);
+	var utils = __webpack_require__(309);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -32050,12 +32073,12 @@
 
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(308);
+	var utils = __webpack_require__(309);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -32108,7 +32131,7 @@
 
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32128,7 +32151,7 @@
 
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32146,7 +32169,7 @@
 
 
 /***/ },
-/* 320 */
+/* 321 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32163,7 +32186,7 @@
 
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32196,21 +32219,6 @@
 
 
 /***/ },
-/* 322 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var AUTH_USER = exports.AUTH_USER = 'AUTH_USER';
-	var UNAUTH_USER = exports.UNAUTH_USER = 'UNAUTH_USER';
-	var AUTH_ERROR = exports.AUTH_ERROR = 'AUTH_ERROR';
-	var FETCH_MESSAGE = exports.FETCH_MESSAGE = 'FETCH_MESSAGE';
-	var RESET_PASSWORD = exports.RESET_PASSWORD = 'RESET_PASSWORD';
-
-/***/ },
 /* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32230,7 +32238,7 @@
 
 	var _reduxForm = __webpack_require__(250);
 
-	var _actions = __webpack_require__(304);
+	var _actions = __webpack_require__(305);
 
 	var actions = _interopRequireWildcard(_actions);
 
@@ -32402,7 +32410,7 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _actions = __webpack_require__(304);
+	var _actions = __webpack_require__(305);
 
 	var actions = _interopRequireWildcard(_actions);
 
@@ -32428,7 +32436,7 @@
 		_createClass(Signout, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
-				this.props.signoutUser(); //Signs out user as soon as they hit this route
+				this.props.logoutUser(); //Signs out user as soon as they hit this route
 				//This strategy allows the use of a message to show the user before they leave
 			}
 		}, {
@@ -32535,7 +32543,7 @@
 
 	var _reactRouter = __webpack_require__(187);
 
-	var _actions = __webpack_require__(304);
+	var _actions = __webpack_require__(305);
 
 	var _reactRedux = __webpack_require__(159);
 
@@ -32553,13 +32561,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ForgotPassword = function (_Component) {
-	  _inherits(ForgotPassword, _Component);
+	var ResetPassword = function (_Component) {
+	  _inherits(ResetPassword, _Component);
 
-	  function ForgotPassword(props, context) {
-	    _classCallCheck(this, ForgotPassword);
+	  function ResetPassword(props, context) {
+	    _classCallCheck(this, ResetPassword);
 
-	    var _this = _possibleConstructorReturn(this, (ForgotPassword.__proto__ || Object.getPrototypeOf(ForgotPassword)).call(this, props, context));
+	    var _this = _possibleConstructorReturn(this, (ResetPassword.__proto__ || Object.getPrototypeOf(ResetPassword)).call(this, props, context));
 
 	    _this.state = {
 	      newPassword: '',
@@ -32571,7 +32579,7 @@
 	    return _this;
 	  }
 
-	  _createClass(ForgotPassword, [{
+	  _createClass(ResetPassword, [{
 	    key: 'handleSubmit',
 	    value: function handleSubmit() {
 	      var _props = this.props;
@@ -32664,7 +32672,7 @@
 	    }
 	  }]);
 
-	  return ForgotPassword;
+	  return ResetPassword;
 	}(_react.Component);
 
 	function mapStateToProps(state) {
@@ -32673,7 +32681,7 @@
 	  };
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { resetPassword: _actions.resetPassword, authError: _actions.authError })(ForgotPassword);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { resetPassword: _actions.resetPassword, authError: _actions.authError })(ResetPassword);
 
 /***/ },
 /* 327 */

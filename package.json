@@ -13,6 +13,7 @@
     "async": "^2.0.1",
     "axios": "^0.10.0",
     "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",
     "crypto": "0.0.3",
@@ -34,7 +35,8 @@
     "redux": "^3.0.4",
     "redux-form": "^5.1.1",
     "redux-thunk": "^2.0.1",
-    "toastr": "^2.1.2"
+    "toastr": "^2.1.2",
+    "validator": "^6.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.2.1",

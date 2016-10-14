@@ -5,7 +5,7 @@ import * as actions from '../../actions';
 class Signout extends Component {
 
 	componentWillMount() {
-		this.props.signoutUser(); //Signs out user as soon as they hit this route
+		this.props.logoutUser(); //Signs out user as soon as they hit this route
 		//This strategy allows the use of a message to show the user before they leave
 	}
 
