@@ -1,3 +1,7 @@
+// load environment configurations
+require('./backend/config/config');
+
+
 //Main starting point of the application
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -7,7 +11,6 @@ const router = require('./backend/router');
 // import mongoose with custom settings
 const { mongoose } = require('./backend/db/mongoose');
 const cors = require('cors');
-const config = require('./backend/config');
 const path = require('path');
 const http = require('http');
 
@@ -32,7 +35,7 @@ app.get('*', function (req, res) {
 
 //Server Setup and Initialization
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 //Define http server below and set up
 

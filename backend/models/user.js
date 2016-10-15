@@ -58,7 +58,7 @@ UserSchema.methods.generateAuthToken = function () {
   var user = this;
   var access = 'auth';
   // toHexString() converts ObjectID mongodb data type into a string
-  var token = jwt.sign({ _id: user._id.toHexString(), access}, 'abc123').toString();
+  var token = jwt.sign({ _id: user._id.toHexString(), access}, process.env.JWT_SECRET).toString();
 
   // push new token onto the user's token's array (see user model above)
   user.tokens.push({ access, token });
@@ -91,7 +91,7 @@ UserSchema.statics.findByToken = function (token) {
   var decoded;
 
   try {
-    decoded = jwt.verify(token, 'abc123');
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (e) {
     return Promise.reject();
   }

@@ -1,8 +1,6 @@
 //import user model
 const { User } = require('./models/user');
 
-// config settings for sendgrid account
-const config = require('./config');
 const _ = require('lodash');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
@@ -106,8 +104,8 @@ module.exports = function (app) {
 					{
 			      service: 'SendGrid',
 			      auth: {
-			        user: config.sendgridUser,
-			        pass: config.sendgridPassword
+			        user: process.env.SEND_USER,
+			        pass: process.env.SEND_PASS
 			    }
 			  });
 
@@ -172,8 +170,8 @@ module.exports = function (app) {
 					{
 			      service: 'SendGrid',
 			      auth: {
-			        user: config.sendgridUser,
-			        pass: config.sendgridPassword
+							user: process.env.SEND_USER,
+							pass: process.env.SEND_PASS
 			    }
 			  });
 

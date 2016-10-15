@@ -1,11 +1,10 @@
 var mongoose = require('mongoose');
-const config = require('./../config');
 
 // set up mongoose to use promises
 mongoose.Promise = global.Promise;
 
 // DB Setup
-mongoose.connect(config.database, function(err) {
+mongoose.connect(process.env.MONGODB_URI, function(err) {
 	if (err) {
 		console.log(err);
 	} else {
