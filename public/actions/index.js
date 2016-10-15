@@ -23,15 +23,20 @@ export function loginUser({ email, password }) {
 
 export function signupUser({ email, password }) {
 	return function(dispatch) {
+		// call signup route
 		return axios.post(`/users/signup`, { email, password })
 			.then(response => {
+				// response is succssful, auth user in redux store
 				dispatch({ type: AUTH_USER });
-
+				// pull jwt from x-auth header and save to localStorage
 				localStorage.setItem('token', response.headers['x-auth']);
-
+				// navigate client route to '/feature'
 				browserHistory.push('/feature');
 			})
-			.catch(response => dispatch(authError(response.data.error)))
+			.catch(response => {
+				// account was not created, reject promise
+				reject();
+			});
 	}
 }
 
@@ -44,6 +49,8 @@ export function logoutUser() {
 			//destroys the user's JWT stored in local storage
 			localStorage.removeItem('token');
 			dispatch({ type: UNAUTH_USER });
+		}).catch(() => {
+			reject();
 		});
 	}
 }
@@ -77,7 +84,7 @@ export function resetPassword(props, token) {
 				dispatch({ type: RESET_PASSWORD });
 			})
 			.catch(error => {
-				dispatch({ type: AUTH_ERROR, payload: error.data });
+				reject();
 			});
 	}
 }

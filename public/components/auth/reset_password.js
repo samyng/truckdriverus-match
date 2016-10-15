@@ -84,9 +84,33 @@ class ResetPassword extends Component {
       				<button className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
 
       			</div>
+
 						<div className="text-center error">
 							{this.props.errorMessage}
 						</div>
+
+						div id="signInMessage" className="row alert alert-success">
+				    	<ul>
+
+				    	  <li>
+									<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
+
+				    	  </li>
+
+				    	  <li>
+									 <i className="fa fa-cube fa-2x" aria-hidden="true"></i>
+
+				    	  </li>
+
+				    	  <li>
+										<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
+
+				    	  </li>
+				    	  <li>
+										<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
+
+				    	  </li>
+				    	</ul>
           </div>
         </div>
 
