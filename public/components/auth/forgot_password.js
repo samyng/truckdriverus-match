@@ -44,51 +44,59 @@ class ForgotPassword extends Component {
 	render() {
 
       return (
-        <div className="row">
-          <div className="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
+        <div>
+  				<div className="form-group">
+            <label>Your Email</label>
+  					<input
+  						id="email"
+  						className="form-control"
+  						type="email"
+  						name="email"
+  						onChange={this.handleUpdateFormState} />
+  				</div>
 
-    				<div className="form-group">
-              <label>Your Email</label>
-    					<input
-    						id="email"
-    						className="form-control"
-    						type="email"
-    						name="email"
-    						placeholder="yourname@domain.com"
-    						onChange={this.handleUpdateFormState} />
-    				</div>
+  				<button className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
 
-    				<button className="btn btn-primary" onClick={this.handleSubmit}>Submit</button>
+					<div className="text-center error">
+						{this.props.errorMessage}
+					</div>
 
-						<div className="text-center error">
-							{this.props.errorMessage}
-						</div>
+					<div id="signInMessage" className="row alert alert-success">
+			    	<ul>
 
-						<div id="signInMessage" className="row alert alert-success">
-				    	<ul>
+			    	  <li>
+								<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
+								If a user forgets his or her password. It is possible to reset the password
+								via the following steps.
+			    	  </li>
 
-				    	  <li>
+			    	  <li>
+								 <i className="fa fa-cube fa-2x" aria-hidden="true"></i>
+								 The user provides the email address used at the time of signup.
+								 The provided email address is sent to the server and the database
+								 is queried. If the user is found, a reset token is created using crypto.
+								 The token is saved to the user instance and sent to the user via email.
+								 The token is sent as a url parameter on a reset link which allows the user
+								 to visit the password reset page.
+			    	  </li>
+
+			    	  <li>
 									<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-
-				    	  </li>
-
-				    	  <li>
-									 <i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-
-				    	  </li>
-
-				    	  <li>
-										<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-
-				    	  </li>
-				    	  <li>
-										<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-
-				    	  </li>
-				    	</ul>
-
-				    </div>
-          </div>
+									On the reset page, the user must enter a new password. The new password
+									and the reset token are sent to the server. The server queries the database
+									using the reset token. The token is only valid for 1 hour after its creation
+									for security purposes. If the user tries to reset his or her password later than
+									1 hour after receiving the token, the reset attempt will fail. If a user is found
+									and the token is valid, the user's password will be hashed and salted, then saved
+									to the user instance effectively resetting the old password.
+			    	  </li>
+			    	  <li>
+									<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
+									An email is sent to the user notifying that the password was successfully
+									reset.
+			    	  </li>
+			    	</ul>
+			    </div>
         </div>
 
   		);

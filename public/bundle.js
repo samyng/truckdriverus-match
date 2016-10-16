@@ -30431,7 +30431,7 @@
 					_react2.default.createElement(
 						_reactRouter.Link,
 						{ to: '/', className: 'navbar-brand' },
-						'Redux Auth'
+						'Full-Stack User Auth'
 					),
 					_react2.default.createElement(
 						'ul',
@@ -30956,11 +30956,6 @@
 						'Sign in'
 					),
 					_react2.default.createElement(
-						'h3',
-						null,
-						'This sign in page will validate a users email and password in the MongoDB database.'
-					),
-					_react2.default.createElement(
 						'div',
 						{ id: 'signInMessage', className: 'row alert alert-success' },
 						_react2.default.createElement(
@@ -30970,13 +30965,19 @@
 								'li',
 								null,
 								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
-								'If the user successfully signs in, a JWT (JSON WEB TOKEN) will be created in local storage containing an eccrypted version of the the users id and a secret code used by the server for decryption and user recognition.'
+								'The user\'s user name and password are sent to the server. The user\'s email is used to fetch the associated user model from the MongoDB database. The user\'s plain text password is hashed and salted using bcrypt. The hashed and salted password is compared against the existing hashed and salted password stored in the database. If the user cannot be found with the provided email or the password doesn\'t match the one stored in the database, the user\'s sign in attempt will fail.'
 							),
 							_react2.default.createElement(
 								'li',
 								null,
 								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
-								'Whenever the user makes requests to the server, the server will check the JWT for validity before providing access to a route with protected resources, such as querying the database.'
+								'If the user successfully signs in, a JWT (JSON WEB TOKEN) will be added to the user model and stored in local storage. The JWT contains an eccrypted version of the user\'s id and a secret code used by the server for decryption and user recognition.'
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
+								'Whenever the user makes a request to the server, it will check the JWT for validity before providing access to a route with protected resources, such as querying the database.'
 							),
 							_react2.default.createElement(
 								'li',
@@ -43081,22 +43082,20 @@
 							_react2.default.createElement(
 								'li',
 								null,
-								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' })
+								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
+								'When a user attempts to sign up, the provided email and password are sent to the server. The server queries the MongoDB database to see if if a user already exists with the given email address. If a user with the same email address already exists, the user\'s sign up attempt will fail.'
 							),
 							_react2.default.createElement(
 								'li',
 								null,
-								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' })
+								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
+								'If the email address is unique, meaning it doesn\'t exist in the database, a new user is created and stored in the database. Before the user is stored the provided plain text password is salted and hashed. Storing an encrypted password is the safest method incase the database is compromised.'
 							),
 							_react2.default.createElement(
 								'li',
 								null,
-								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' })
-							),
-							_react2.default.createElement(
-								'li',
-								null,
-								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' })
+								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
+								'Upon successfully signing up, the user is automatically signed in and given a JWT. (See the sign in page for details)'
 							)
 						)
 					)
@@ -43257,16 +43256,11 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					null,
-					_react2.default.createElement(
-						'h1',
-						null,
-						'Your JWT:'
-					),
+					{ className: 'row' },
 					_react2.default.createElement(
 						'p',
-						null,
-						this.state.jwt
+						{ className: 'alert-success' },
+						'Your JWT is now valid!'
 					)
 				);
 			}
@@ -43284,7 +43278,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-			value: true
+		value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -43312,126 +43306,125 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ForgotPassword = function (_Component) {
-			_inherits(ForgotPassword, _Component);
+		_inherits(ForgotPassword, _Component);
 
-			function ForgotPassword(props, context) {
-					_classCallCheck(this, ForgotPassword);
+		function ForgotPassword(props, context) {
+			_classCallCheck(this, ForgotPassword);
 
-					var _this = _possibleConstructorReturn(this, (ForgotPassword.__proto__ || Object.getPrototypeOf(ForgotPassword)).call(this, props, context));
+			var _this = _possibleConstructorReturn(this, (ForgotPassword.__proto__ || Object.getPrototypeOf(ForgotPassword)).call(this, props, context));
 
-					_this.state = {
-							email: ''
-					};
+			_this.state = {
+				email: ''
+			};
 
-					_this.handleUpdateFormState = _this.handleUpdateFormState.bind(_this);
-					_this.handleSubmit = _this.handleSubmit.bind(_this);
-					return _this;
+			_this.handleUpdateFormState = _this.handleUpdateFormState.bind(_this);
+			_this.handleSubmit = _this.handleSubmit.bind(_this);
+			return _this;
+		}
+
+		_createClass(ForgotPassword, [{
+			key: 'handleSubmit',
+			value: function handleSubmit() {
+				var _props = this.props;
+				var forgotPassword = _props.forgotPassword;
+				var authError = _props.authError;
+
+
+				var email = this.state.email;
+
+				var props = {
+					email: email
+				};
+
+				forgotPassword(props).then(function () {
+					_toastr2.default.success("An email was sent with instructions for resetting your password");
+					_reactRouter.browserHistory.push('/');
+				}).catch(function (err) {
+					_toastr2.default.warning("Email does not exist");
+				});
 			}
+		}, {
+			key: 'handleUpdateFormState',
+			value: function handleUpdateFormState(event) {
+				this.setState({
+					email: event.target.value
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
 
-			_createClass(ForgotPassword, [{
-					key: 'handleSubmit',
-					value: function handleSubmit() {
-							var _props = this.props;
-							var forgotPassword = _props.forgotPassword;
-							var authError = _props.authError;
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'form-group' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'Your Email'
+						),
+						_react2.default.createElement('input', {
+							id: 'email',
+							className: 'form-control',
+							type: 'email',
+							name: 'email',
+							onChange: this.handleUpdateFormState })
+					),
+					_react2.default.createElement(
+						'button',
+						{ className: 'btn btn-primary', onClick: this.handleSubmit },
+						'Submit'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'text-center error' },
+						this.props.errorMessage
+					),
+					_react2.default.createElement(
+						'div',
+						{ id: 'signInMessage', className: 'row alert alert-success' },
+						_react2.default.createElement(
+							'ul',
+							null,
+							_react2.default.createElement(
+								'li',
+								null,
+								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
+								'If a user forgets his or her password. It is possible to reset the password via the following steps.'
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
+								'The user provides the email address used at the time of signup. The provided email address is sent to the server and the database is queried. If the user is found, a reset token is created using crypto. The token is saved to the user instance and sent to the user via email. The token is sent as a url parameter on a reset link which allows the user to visit the password reset page.'
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
+								'On the reset page, the user must enter a new password. The new password and the reset token are sent to the server. The server queries the database using the reset token. The token is only valid for 1 hour after its creation for security purposes. If the user tries to reset his or her password later than 1 hour after receiving the token, the reset attempt will fail. If a user is found and the token is valid, the user\'s password will be hashed and salted, then saved to the user instance effectively resetting the old password.'
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' }),
+								'An email is sent to the user notifying that the password was successfully reset.'
+							)
+						)
+					)
+				);
+			}
+		}]);
 
-
-							var email = this.state.email;
-
-							var props = {
-									email: email
-							};
-
-							forgotPassword(props).then(function () {
-									_toastr2.default.success("An email was sent with instructions for resetting your password");
-									_reactRouter.browserHistory.push('/');
-							}).catch(function (err) {
-									_toastr2.default.warning("Email does not exist");
-							});
-					}
-			}, {
-					key: 'handleUpdateFormState',
-					value: function handleUpdateFormState(event) {
-							this.setState({
-									email: event.target.value
-							});
-					}
-			}, {
-					key: 'render',
-					value: function render() {
-
-							return _react2.default.createElement(
-									'div',
-									{ className: 'row' },
-									_react2.default.createElement(
-											'div',
-											{ className: 'col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3' },
-											_react2.default.createElement(
-													'div',
-													{ className: 'form-group' },
-													_react2.default.createElement(
-															'label',
-															null,
-															'Your Email'
-													),
-													_react2.default.createElement('input', {
-															id: 'email',
-															className: 'form-control',
-															type: 'email',
-															name: 'email',
-															placeholder: 'yourname@domain.com',
-															onChange: this.handleUpdateFormState })
-											),
-											_react2.default.createElement(
-													'button',
-													{ className: 'btn btn-primary', onClick: this.handleSubmit },
-													'Submit'
-											),
-											_react2.default.createElement(
-													'div',
-													{ className: 'text-center error' },
-													this.props.errorMessage
-											),
-											_react2.default.createElement(
-													'div',
-													{ id: 'signInMessage', className: 'row alert alert-success' },
-													_react2.default.createElement(
-															'ul',
-															null,
-															_react2.default.createElement(
-																	'li',
-																	null,
-																	_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' })
-															),
-															_react2.default.createElement(
-																	'li',
-																	null,
-																	_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' })
-															),
-															_react2.default.createElement(
-																	'li',
-																	null,
-																	_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' })
-															),
-															_react2.default.createElement(
-																	'li',
-																	null,
-																	_react2.default.createElement('i', { className: 'fa fa-cube fa-2x', 'aria-hidden': 'true' })
-															)
-													)
-											)
-									)
-							);
-					}
-			}]);
-
-			return ForgotPassword;
+		return ForgotPassword;
 	}(_react.Component);
 
 	function mapStateToProps(state) {
-			return { authenticated: state.auth.authenticated,
-					errorMessage: state.auth.error
-			};
+		return { authenticated: state.auth.authenticated,
+			errorMessage: state.auth.error
+		};
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, { forgotPassword: _actions.forgotPassword, authError: _actions.authError })(ForgotPassword);

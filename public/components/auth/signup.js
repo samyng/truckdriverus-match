@@ -62,21 +62,25 @@ class Signup extends Component {
 
 						<li>
 							<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-
+							When a user attempts to sign up, the provided email and password are
+							sent to the server. The server queries the MongoDB database to see if
+							if a user already exists with the given email address. If a user with
+							the same email address already exists, the user's sign up attempt will
+							fail.
 						</li>
 
 						<li>
 							 <i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-
+							 If the email address is unique, meaning it doesn't exist in the database,
+							 a new user is created and stored in the database. Before the user is stored
+							 the provided plain text password is salted and hashed. Storing an encrypted password
+							 is the safest method incase the database is compromised.
 						</li>
 
 						<li>
 								<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-
-						</li>
-						<li>
-								<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-
+								Upon successfully signing up, the user is automatically signed in
+								and given a JWT. (See the sign in page for details)
 						</li>
 					</ul>
 				</div>

@@ -41,22 +41,34 @@ class Signin extends Component {
 			  </fieldset>
 			  {this.renderAlert()}
 			  <button action="submit" className="btn btn-primary">Sign in</button>
-					<h3>
-						This sign in page will validate a users email and password
-						in the MongoDB database.
-					</h3>
+
 			    <div id="signInMessage" className="row alert alert-success">
 			    	<ul>
 
+							<li>
+								<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
+								The user's user name and password are sent to the server.
+								The user's email is used to fetch the associated user model from the MongoDB database.
+								The user's plain text password is hashed and salted using bcrypt.
+								The hashed and salted password is compared against the existing hashed and salted
+								password stored in the database.
+								If the user cannot be found with the provided email or the password
+								doesn't match the one stored in the database, the user's sign in attempt
+								will fail.
+
+							</li>
+
 			    	  <li>
 								<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-			    		  If the user successfully signs in, a JWT (JSON WEB TOKEN) will be created in local storage containing an eccrypted
-			    		  version of the the users id and a secret code used by the server for decryption and user recognition.
+			    		  If the user successfully signs in, a JWT (JSON WEB TOKEN) will be added
+								to the user model and stored in local storage. The JWT contains an eccrypted
+			    		  version of the user's id and a secret code used by the server for
+								decryption and user recognition.
 			    	  </li>
 
 			    	  <li>
 								 <i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-			    	      Whenever the user makes requests to the server, the server will check the JWT for validity
+			    	      Whenever the user makes a request to the server, it will check the JWT for validity
 			    	      before providing access to a route with protected resources, such as querying the database.
 			    	  </li>
 
@@ -69,6 +81,11 @@ class Signin extends Component {
 			    	  <li>
 									<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
 			    	      Redux Form is used to validate user input in the text boxes to ensure a blank field isnt submitted.
+			    	  </li>
+							<li>
+									<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
+			    	      When a user signs out, the JWT is removed from local storage and from
+									the user instance.
 			    	  </li>
 			    	</ul>
 

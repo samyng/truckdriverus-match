@@ -16,9 +16,10 @@ class Feature extends Component {
 
 	render() {
 		return (
-			<div>
-				<h1>Your JWT:</h1>
-				<p>{this.state.jwt}</p>
+			<div className="row">
+
+				<p className="alert-success">Your JWT is now valid!</p>
+
 			</div>
 		);
 	}
