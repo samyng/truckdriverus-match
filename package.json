@@ -2,6 +2,9 @@
   "name": "full-stack-user-authentication",
   "version": "1.0.0",
   "description": "Full stack user authentication with JWT's via Node.js and React.js with Redux.",
+  "engines": {
+    "node": "6.0.0"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
