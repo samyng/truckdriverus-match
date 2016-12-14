@@ -18,12 +18,14 @@ const nodemailer = require('nodemailer');
 const _ = require('underscore');
 const async = require('async');
 
+const bodyParser = require('body-parser');
 
 
 //Express App Setup
 
 app.use(morgan('combined')); //logs incoming requests
 app.use(cors());
+app.use(bodyParser.json({ type: '*/*' }));
 
 router(app);
 // import mongoose models
