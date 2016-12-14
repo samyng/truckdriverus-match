@@ -29,6 +29,7 @@ module.exports = function (app) {
 	    // The 'x-' prefix signifies a custom http header
 	    res.header('x-auth', token).send(user);
 	  }).catch(e => {
+      console.log(e);
 	    res.status(400).send(e);
 	  });
 	});
