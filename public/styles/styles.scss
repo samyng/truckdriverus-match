@@ -4,19 +4,35 @@ $red: red;
 	color: $red;
 }
 
-h3 {
-	margin-top: 1em !important;
+#signInBtn {
+	width: 100%;
 }
 
-#signInMessage {
-	margin-top: 2em;
-	ul {
-		list-style-type: none;
-		li {
-			padding: 15px 0;
-		}
-		.fa-cube {
-			margin-right: 10px;
-		}
-	}
+#saveCheck {
+  left: 50%;
+  color: #90EE90;
+  font-size: 1.5em !important;
+}
+
+#sentSuccess {
+  color: #90EE90;
+  font-size: 4.0em !important;
+}
+
+#successMessage {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+.green-hr {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-top: 1px solid #989898;
+  width: 400px;
+  background-color: #989898;
+}
+
+.form-group {
+  margin-top: 30px;
 }

@@ -35,5 +35,5 @@ export default function(ComposedComponent) { //This code right here serves as th
 		return { authenticated: state.auth.authenticated };
 	}
 
-	return connect(mapStateToProps)(Authentication);
+	return connect(mapStateToProps, null)(Authentication);
 }

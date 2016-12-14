@@ -15,7 +15,7 @@ class Signout extends Component {
 
 	render() {
 		return (
-			<div>Your JWT was destroyed...</div>
+			<div className="col-xs-6 offset-xs-3"></div>
 		);
 	}
 

@@ -8,11 +8,10 @@ import Feature from './components/feature';
 import ForgotPassword from './components/auth/forgot_password';
 import ResetPassword from './components/auth/reset_password';
 import RequireAuth from './components/auth/require_auth';
-import Welcome from './components/welcome';
 
 export default (
 	<Route path="/" component={App}>
-		<IndexRoute component={Welcome} />
+		<IndexRoute component={Signin} />
 		<Route path="signin" component={Signin} />
 		<Route path="signout" component={Signout} />
 		<Route path="signup" component={Signup} />

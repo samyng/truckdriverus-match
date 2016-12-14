@@ -36,7 +36,7 @@ class Signup extends Component {
 		//touched means the user has clicked in and out of the input field
 		const {handleSubmit, fields: { email, password, passwordConfirm }} = this.props;
 		return (
-			<div>
+			<div className="col-xs-6 offset-xs-3">
 				<form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 					<fieldset className="form-group">
 						<label>Email:</label>
@@ -54,36 +54,8 @@ class Signup extends Component {
 					</fieldset>
 						{passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
 						{this.renderAlert()}
-					<button action="submit" className="btn btn-primary">Sign Up</button>
+					<button id="signInBtn" action="submit" className="btn btn-primary">Sign Up</button>
 				</form>
-
-				<div id="signInMessage" className="row alert alert-success">
-					<ul>
-
-						<li>
-							<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-							When a user attempts to sign up, the provided email and password are
-							sent to the server. The server queries the MongoDB database to see if
-							if a user already exists with the given email address. If a user with
-							the same email address already exists, the user's sign up attempt will
-							fail.
-						</li>
-
-						<li>
-							 <i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-							 If the email address is unique, meaning it doesn't exist in the database,
-							 a new user is created and stored in the database. Before the user is stored
-							 the provided plain text password is salted and hashed. Storing an encrypted password
-							 is the safest method incase the database is compromised.
-						</li>
-
-						<li>
-								<i className="fa fa-cube fa-2x" aria-hidden="true"></i>
-								Upon successfully signing up, the user is automatically signed in
-								and given a JWT. (See the sign in page for details)
-						</li>
-					</ul>
-				</div>
 			</div>
 		);
 	}
