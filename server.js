@@ -238,23 +238,23 @@ const createCandidates = () => {
   //   candidate.save();
   // }
 
-  // const candidate = new Candidate();
-  // candidate.firstName = 'Marcus';
-  // candidate.lastName = 'Hurney';
-  // candidate.email = 'marcushurney@gmail.com';
-  // candidate.state = 'GA';
-  // // remove dashes from candidate's phone number before saving
-  // candidate.phone = '7064834776';
-  // candidate.save();
-
-  let candidate = new Candidate();
-  candidate.firstName = 'Kathy';
-  candidate.lastName = 'Nguyen';
+  const candidate = new Candidate();
+  candidate.firstName = 'Marcus';
+  candidate.lastName = 'Hurney';
   candidate.email = 'marcushurney@gmail.com';
-  candidate.state = 'MA';
+  candidate.state = 'GA';
   // remove dashes from candidate's phone number before saving
-  candidate.phone = '4043940821';
+  candidate.phone = '7064834776';
   candidate.save();
+
+  // let candidate = new Candidate();
+  // candidate.firstName = 'Kathy';
+  // candidate.lastName = 'Nguyen';
+  // candidate.email = 'marcushurney@gmail.com';
+  // candidate.state = 'MA';
+  // // remove dashes from candidate's phone number before saving
+  // candidate.phone = '4043940821';
+  // candidate.save();
 
   // const candidate = new Candidate();
   // candidate.firstName = 'Colby';

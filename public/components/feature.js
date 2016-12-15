@@ -111,7 +111,7 @@ export default class Feature extends Component {
         <div id="feature" className="col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-lg-3">
           <form action="/" method="post" encType="multipart/form-data">
 
-            <h6>To upload save new candidates, follow the <span className="green_span">3 step</span> process below</h6>
+            <h6>To upload & save new candidates, follow the <span className="green_span">3 step</span> process below</h6>
             <hr className="green-hr" />
 
             <div className="form-group">
