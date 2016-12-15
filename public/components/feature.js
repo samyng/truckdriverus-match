@@ -108,14 +108,18 @@ export default class Feature extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-lg-3">
+        <div id="feature" className="col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-lg-3">
           <form action="/" method="post" encType="multipart/form-data">
+
+            <h6>To upload save new candidates, follow the <span className="green_span">3 step</span> process below</h6>
+            <hr className="green-hr" />
+
             <div className="form-group">
-              <label for="selectFile">Select a CSV File to Upload</label>
+              <label for="selectFile"><span className="green_span">1.</span> Select a CSV File to Upload</label>
               <input className="form-control" id="userFile" type="file" name="userFile"></input>
             </div>
             <div className="form-group">
-              <label for="uploadFile">Upload Selected CSV File to the Server</label>
+              <label for="uploadFile"><span className="green_span">2.</span> Upload Selected CSV File to the Server</label>
               <input
                 className="form-control btn btn-primary"
                 type="submit"
@@ -126,10 +130,10 @@ export default class Feature extends Component {
           </form>
           <div className="form-group">
             <label for="addCandidates">
-              Save Uploaded Candidates to the Database
+              <span className="green_span">3.</span> Save Uploaded Candidates to the Database
             </label>
             <button className="form-control btn btn-primary" onClick={this.addCandidates.bind(this)}>
-              {this.state.candidatesSaved ? <i id="saveCheck" className="fa fa-check-circle-o" aria-hidden="true"></i> : "Save"}
+              {this.state.candidatesSaved ? <i id="saveCheck" className="fa fa-check-circle-o" aria-hidden="true"></i> : "Save Candidates"}
             </button>
           </div>
 
@@ -140,18 +144,16 @@ export default class Feature extends Component {
               Send SMS to All Matched Candidates
             </label>
             <button className="form-control btn btn-primary" onClick={this.sendSMS.bind(this)}>
-              {this.state.smsSent ? <i id="saveCheck" className="fa fa-check-circle-o" aria-hidden="true"></i> : "Send"}
+              {this.state.smsSent ? <i id="saveCheck" className="fa fa-check-circle-o" aria-hidden="true"></i> : "Send SMS"}
             </button>
           </div>
-
-          <hr className="green-hr"/>
 
           <div className="form-group">
             <label for="addCandidates">
               Send Emails to All Matched Candidates
             </label>
             <button className="form-control btn btn-primary" onClick={this.sendEmails.bind(this)}>
-              {this.state.emailsSent ? <i id="saveCheck" className="fa fa-check-circle-o" aria-hidden="true"></i> : "Send"}
+              {this.state.emailsSent ? <i id="saveCheck" className="fa fa-check-circle-o" aria-hidden="true"></i> : "Send Emails"}
             </button>
           </div>
         </div>

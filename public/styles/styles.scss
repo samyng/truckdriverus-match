@@ -3,6 +3,9 @@ $red: red;
 .error {
 	color: $red;
 }
+#feature {
+  padding: 35px 0 35px 0;
+}
 
 #signInBtn {
 	width: 100%;
@@ -31,6 +34,10 @@ $red: red;
   border-top: 1px solid #989898;
   width: 400px;
   background-color: #989898;
+}
+
+.green_span {
+	color: #009900;
 }
 
 .form-group {

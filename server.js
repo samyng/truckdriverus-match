@@ -198,7 +198,7 @@ const sendPlivoSMS = (number, message) => {
       'dst' : `+1${number}`,
       'text' : message
     };
-    console.log(params);
+
     p.send_message(params, function (status, response) {
       console.log('Status: ', status);
       console.log('API Response:\n', response);
@@ -213,7 +213,6 @@ const sendEmail = (firstName, email, jobURL) => {
     subject: 'I found a job for you',
     text: messageToSend
   };
-  console.log(mailOptions);
 
 	smtpTransport.sendMail(mailOptions, function(err) {
   	if (err) {
@@ -239,23 +238,23 @@ const createCandidates = () => {
   //   candidate.save();
   // }
 
-  const candidate = new Candidate();
-  candidate.firstName = 'Marcus';
-  candidate.lastName = 'Hurney';
-  candidate.email = 'marcushurney@gmail.com';
-  candidate.state = 'GA';
-  // remove dashes from candidate's phone number before saving
-  candidate.phone = '7064834776';
-  candidate.save();
-
   // const candidate = new Candidate();
-  // candidate.firstName = 'Kathy';
-  // candidate.lastName = 'Nguyen';
+  // candidate.firstName = 'Marcus';
+  // candidate.lastName = 'Hurney';
   // candidate.email = 'marcushurney@gmail.com';
-  // candidate.state = 'MA';
+  // candidate.state = 'GA';
   // // remove dashes from candidate's phone number before saving
-  // candidate.phone = '4043940821';
+  // candidate.phone = '7064834776';
   // candidate.save();
+
+  let candidate = new Candidate();
+  candidate.firstName = 'Kathy';
+  candidate.lastName = 'Nguyen';
+  candidate.email = 'marcushurney@gmail.com';
+  candidate.state = 'MA';
+  // remove dashes from candidate's phone number before saving
+  candidate.phone = '4043940821';
+  candidate.save();
 
   // const candidate = new Candidate();
   // candidate.firstName = 'Colby';

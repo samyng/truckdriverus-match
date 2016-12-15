@@ -17,21 +17,18 @@ class Header extends Component {
 
 	renderLinks() {
 		if (this.props.authenticated) {
-			return (
-				<li className="nav-item">
+			return [
+				<li className="nav-item" key={1}>
+				  <Link className="nav-link" to="/signup">Create User</Link>
+				</li>,
+				<li className="nav-item" key={2}>
 				  <Link className="nav-link" to="/signout">Sign Out</Link>
 				</li>
-			);
+			];
 		} else {
 			return [
 				<li className="nav-item" key={1}>
 				  <Link className="nav-link" to="/signin">Sign In</Link>
-				</li>,
-				<li className="nav-item" key={2}>
-				  <Link className="nav-link" to="/signup">Sign Up</Link>
-				</li>,
-				<li className="nav-item" key={3}>
-				  <Link className="nav-link" to="/forgot-password">Forgot Password</Link>
 				</li>
 			];
 		}

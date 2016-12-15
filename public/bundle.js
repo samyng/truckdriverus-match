@@ -30612,7 +30612,7 @@
 		_react2.default.createElement(_reactRouter.IndexRoute, { component: _signin2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }),
-		_react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }),
+		_react2.default.createElement(_reactRouter.Route, { path: 'signup', component: (0, _require_auth2.default)(_signup2.default) }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'forgot-password', component: _forgot_password2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'reset-password/:token', component: _reset_password2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'feature', component: (0, _require_auth2.default)(_feature2.default) })
@@ -30752,15 +30752,23 @@
 			key: 'renderLinks',
 			value: function renderLinks() {
 				if (this.props.authenticated) {
-					return _react2.default.createElement(
+					return [_react2.default.createElement(
 						'li',
-						{ className: 'nav-item' },
+						{ className: 'nav-item', key: 1 },
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ className: 'nav-link', to: '/signup' },
+							'Create User'
+						)
+					), _react2.default.createElement(
+						'li',
+						{ className: 'nav-item', key: 2 },
 						_react2.default.createElement(
 							_reactRouter.Link,
 							{ className: 'nav-link', to: '/signout' },
 							'Sign Out'
 						)
-					);
+					)];
 				} else {
 					return [_react2.default.createElement(
 						'li',
@@ -30769,22 +30777,6 @@
 							_reactRouter.Link,
 							{ className: 'nav-link', to: '/signin' },
 							'Sign In'
-						)
-					), _react2.default.createElement(
-						'li',
-						{ className: 'nav-item', key: 2 },
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ className: 'nav-link', to: '/signup' },
-							'Sign Up'
-						)
-					), _react2.default.createElement(
-						'li',
-						{ className: 'nav-item', key: 3 },
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ className: 'nav-link', to: '/forgot-password' },
-							'Forgot Password'
 						)
 					)];
 				}
@@ -30835,7 +30827,7 @@
 
 
 	// module
-	exports.push([module.id, ".error {\n  color: red; }\n\n#signInBtn {\n  width: 100%; }\n\n#saveCheck {\n  left: 50%;\n  color: #90EE90;\n  font-size: 1.5em !important; }\n\n#sentSuccess {\n  color: #90EE90;\n  font-size: 4.0em !important; }\n\n#successMessage {\n  padding-top: 50px;\n  padding-bottom: 50px;\n  text-align: center; }\n\n.green-hr {\n  margin-top: 50px;\n  margin-bottom: 50px;\n  border-top: 1px solid #989898;\n  width: 400px;\n  background-color: #989898; }\n\n.form-group {\n  margin-top: 30px; }\n", ""]);
+	exports.push([module.id, ".error {\n  color: red; }\n\n#feature {\n  padding: 35px 0 35px 0; }\n\n#signInBtn {\n  width: 100%; }\n\n#saveCheck {\n  left: 50%;\n  color: #90EE90;\n  font-size: 1.5em !important; }\n\n#sentSuccess {\n  color: #90EE90;\n  font-size: 4.0em !important; }\n\n#successMessage {\n  padding-top: 50px;\n  padding-bottom: 50px;\n  text-align: center; }\n\n.green-hr {\n  margin-top: 50px;\n  margin-bottom: 50px;\n  border-top: 1px solid #989898;\n  width: 400px;\n  background-color: #989898; }\n\n.green_span {\n  color: #009900; }\n\n.form-group {\n  margin-top: 30px; }\n", ""]);
 
 	// exports
 
@@ -43623,17 +43615,34 @@
 	        { className: 'row' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-lg-3' },
+	          { id: 'feature', className: 'col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-lg-3' },
 	          _react2.default.createElement(
 	            'form',
 	            { action: '/', method: 'post', encType: 'multipart/form-data' },
+	            _react2.default.createElement(
+	              'h6',
+	              null,
+	              'To upload save new candidates, follow the ',
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'green_span' },
+	                '3 step'
+	              ),
+	              ' process below'
+	            ),
+	            _react2.default.createElement('hr', { className: 'green-hr' }),
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'form-group' },
 	              _react2.default.createElement(
 	                'label',
 	                { 'for': 'selectFile' },
-	                'Select a CSV File to Upload'
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'green_span' },
+	                  '1.'
+	                ),
+	                ' Select a CSV File to Upload'
 	              ),
 	              _react2.default.createElement('input', { className: 'form-control', id: 'userFile', type: 'file', name: 'userFile' })
 	            ),
@@ -43643,7 +43652,12 @@
 	              _react2.default.createElement(
 	                'label',
 	                { 'for': 'uploadFile' },
-	                'Upload Selected CSV File to the Server'
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'green_span' },
+	                  '2.'
+	                ),
+	                ' Upload Selected CSV File to the Server'
 	              ),
 	              _react2.default.createElement('input', {
 	                className: 'form-control btn btn-primary',
@@ -43658,12 +43672,17 @@
 	            _react2.default.createElement(
 	              'label',
 	              { 'for': 'addCandidates' },
-	              'Save Uploaded Candidates to the Database'
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'green_span' },
+	                '3.'
+	              ),
+	              ' Save Uploaded Candidates to the Database'
 	            ),
 	            _react2.default.createElement(
 	              'button',
 	              { className: 'form-control btn btn-primary', onClick: this.addCandidates.bind(this) },
-	              this.state.candidatesSaved ? _react2.default.createElement('i', { id: 'saveCheck', className: 'fa fa-check-circle-o', 'aria-hidden': 'true' }) : "Save"
+	              this.state.candidatesSaved ? _react2.default.createElement('i', { id: 'saveCheck', className: 'fa fa-check-circle-o', 'aria-hidden': 'true' }) : "Save Candidates"
 	            )
 	          ),
 	          _react2.default.createElement('hr', { className: 'green-hr' }),
@@ -43678,10 +43697,9 @@
 	            _react2.default.createElement(
 	              'button',
 	              { className: 'form-control btn btn-primary', onClick: this.sendSMS.bind(this) },
-	              this.state.smsSent ? _react2.default.createElement('i', { id: 'saveCheck', className: 'fa fa-check-circle-o', 'aria-hidden': 'true' }) : "Send"
+	              this.state.smsSent ? _react2.default.createElement('i', { id: 'saveCheck', className: 'fa fa-check-circle-o', 'aria-hidden': 'true' }) : "Send SMS"
 	            )
 	          ),
-	          _react2.default.createElement('hr', { className: 'green-hr' }),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'form-group' },
@@ -43693,7 +43711,7 @@
 	            _react2.default.createElement(
 	              'button',
 	              { className: 'form-control btn btn-primary', onClick: this.sendEmails.bind(this) },
-	              this.state.emailsSent ? _react2.default.createElement('i', { id: 'saveCheck', className: 'fa fa-check-circle-o', 'aria-hidden': 'true' }) : "Send"
+	              this.state.emailsSent ? _react2.default.createElement('i', { id: 'saveCheck', className: 'fa fa-check-circle-o', 'aria-hidden': 'true' }) : "Send Emails"
 	            )
 	          )
 	        ),

@@ -14,7 +14,7 @@ export default (
 		<IndexRoute component={Signin} />
 		<Route path="signin" component={Signin} />
 		<Route path="signout" component={Signout} />
-		<Route path="signup" component={Signup} />
+		<Route path="signup" component={RequireAuth(Signup)} />
 		<Route path="forgot-password" component={ForgotPassword} />
 		<Route path="reset-password/:token" component={ResetPassword} />
 		<Route path="feature" component={RequireAuth(Feature)} />
