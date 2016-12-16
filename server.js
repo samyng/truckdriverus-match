@@ -206,10 +206,10 @@ const sendPlivoSMS = (number, message) => {
 };
 
 const sendEmail = (firstName, email, jobURL) => {
-  const messageToSend = 'Hi ' + firstName + '!' + ' My name is Chloe. I found your profile online and you look like a great fit for this role - are you interested? ' + jobURL;
+  const messageToSend = 'Hi ' + firstName + '!' + ' My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ' + jobURL;
   var mailOptions = {
     to: email,
-    from: 'Chloe@gethappie.me',
+    from: 'Tiffany@truckdriverus.com',
     subject: 'I found a job for you',
     text: messageToSend
   };
@@ -371,7 +371,7 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         // construct jobURL
         let jobURL = `http://www.jobs2careers.com/click.php?id=${jobToSend.id}.${PUBLISHER_ID}`;
 
-        let messageToSend =  `Hi ${candidate.firstName}! My name is Chloe. I found your profile online and you look like a great fit for this role - are you interested? ${jobURL}`;
+        let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${jobURL}`;
         // console.log(`You sent a message to ${candidate.firstName}. Here is what it said: ${messageToSend}, here is your number: ${candidate.phone}`);
 
         if (typeOfReq === 'sms') {
