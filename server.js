@@ -198,6 +198,7 @@ const sendPlivoSMS = (number, message) => {
       'dst' : `+1${number}`,
       'text' : message
     };
+    totalMessages++;
 
     p.send_message(params, function (status, response) {
       console.log('Status: ', status);
@@ -352,6 +353,7 @@ const fetchClients = (allJobs, typeOfReq) => {
   });
 };
 
+let totalMessages = 0;
 const sendJobs = (candidatesArray, typeOfReq) => {
 
   return new Promise((resolve, reject) => {
@@ -372,10 +374,11 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         let jobURL = `http://www.jobs2careers.com/click.php?id=${jobToSend.id}.${PUBLISHER_ID}`;
 
         let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${jobURL}`;
-        // console.log(`You sent a message to ${candidate.firstName}. Here is what it said: ${messageToSend}, here is your number: ${candidate.phone}`);
+        // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
 
         if (typeOfReq === 'sms') {
           // send the actual SMS here
+
           sendPlivoSMS(candidate.phone, messageToSend);
         } else if (typeOfReq === 'email') {
           // send the email
@@ -411,6 +414,7 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         reject(err);
       } else {
         console.log(jobsSent);
+        console.log('Total messages sent: ' + totalMessages);
         resolve();
       }
     });
@@ -436,27 +440,37 @@ const readCSV = () => {
           // console.log(person.location);
           // console.log(person.phone);
           // this below works with Trucker Test File
-          const candidate = new Candidate();
-          candidate.firstName = person['firstname'];
-          candidate.lastName = person['lastname'];
-          candidate.email = person['email'];
-          candidate.location = person['location'];
-          candidate.state = extractState(person['location']).trim();
-          // remove dashes from candidate's phone number before saving
-          candidate.phone = person['phone'].replace(/-/g, "");
-          candidate.save();
+          // const candidate = new Candidate();
+          // candidate.firstName = person['firstname'];
+          // candidate.lastName = person['lastname'];
+          // candidate.email = person['email'];
+          // candidate.location = person['location'];
+          // candidate.state = extractState(person['location']).trim();
+          // // remove dashes from candidate's phone number before saving
+          // candidate.phone = person['phone'].replace(/-/g, "");
+          // candidate.save();
 
           // original
-          // const candidate = new Candidate();
-          // candidate.firstName = person['First Name'];
-          // candidate.lastName = person['Last Name'];
-          // candidate.email = person['Email Address'];
-          // candidate.location = person['Location'];
-          // // extract state from location
-          // candidate.state = extractState(person['Location']).trim();
-          // // remove dashes from candidate's phone number before saving
-          // candidate.phone = person['Phone Number'].replace(/-/g, "");
-          // candidate.save();
+          // console.log(person['First Name']);
+          // console.log(person['Last Name']);
+          // console.log(person['Email']);
+          // console.log(person['Location']);
+          // if (person['Phone']) {
+          //   console.log(person['Phone']);
+          // }
+
+          const candidate = new Candidate();
+          candidate.firstName = person['First Name'];
+          candidate.lastName = person['Last Name'];
+          candidate.email = person['Email'];
+          candidate.location = person['Location'];
+          // extract state from location
+          candidate.state = extractState(person['Location']).trim();
+          // remove dashes from candidate's phone number before saving
+          if (person['Phone']) {
+            candidate.phone = person['Phone'].replace(/-/g, "");
+          }
+          candidate.save();
         });
         resolve();
     });
