@@ -14,9 +14,15 @@ const cors = require('cors');
 const path = require('path');
 const http = require('http');
 const axios = require('axios');
-const nodemailer = require('nodemailer');
+const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+const nodemailer = require('nodemailer'); // may need to remove this
 const _ = require('underscore');
 const async = require('async');
+
+// import and create bitly object
+const Bitly = require('bitly');
+const bitly = new Bitly('853d0d686f928c7c163c816da8c05ad5e9aff7a0');
+
 
 //Express App Setup
 
@@ -54,13 +60,13 @@ var p = plivo.RestAPI({
 });
 
 // nodemailer configuration with sendgrid
-var smtpTransport = nodemailer.createTransport('SMTP', {
-  service: 'SendGrid',
-  auth: {
-    user: process.env.SEND_USER,
-    pass: process.env.SEND_PASS
-  }
-});
+// var smtpTransport = nodemailer.createTransport('SMTP', {
+//   service: 'SendGrid',
+//   auth: {
+//     user: process.env.SEND_USER,
+//     pass: process.env.SEND_PASS
+//   }
+// });
 
 //Express App Setup
 
@@ -194,12 +200,12 @@ const selectJobsLessThanMax = (candidatesJobs, jobsSent, max) => {
 
 const sendPlivoSMS = (number, message) => {
     var params = {
-      'src': '+13522276295',
+      'src': '+18555293620',
       'dst' : `+1${number}`,
       'text' : message
     };
     totalMessages++;
-
+    console.log(params);
     p.send_message(params, function (status, response) {
       console.log('Status: ', status);
       console.log('API Response:\n', response);
@@ -207,21 +213,60 @@ const sendPlivoSMS = (number, message) => {
 };
 
 const sendEmail = (firstName, email, jobURL) => {
-  const messageToSend = 'Hi ' + firstName + '!' + ' My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ' + jobURL;
-  var mailOptions = {
-    to: email,
-    from: 'Tiffany@truckdriverus.com',
-    subject: 'I found a job for you',
-    text: messageToSend
-  };
+  var request = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: {
+      personalizations: [
+        {
+          to: [
+            {
+              email: email,
+            },
+          ],
+          subject: 'Interested in a new role?',
+        },
+      ],
+      from: {
+        email: 'Tiffany@truckdriverus.com',
+        name: 'Tiffany Hall'
+      },
+      content: [
+        {
+          type: 'text/html',
+          value: `<html>
+                    <p>Hi ${firstName},</p>
+                    <br/>
+                    <p>
+                      My name is Tiffany. I found your profile online and you look like a
+                      great fit for this role - are you interested?
+                      ${jobURL}
+                    </p>
+                    <br/>
+                    <p>Thanks!</p>
+                    <p>Tiffany</p>
+                    <br/>
+                    <p>--</p>
+                    <p>Tiffany Hall</p>
+                    <p><a href="https://www.truckdriverus.com/">Truck Driver US</a></p>
+                  </html>`
+        },
+      ],
+    },
+  });
 
-	smtpTransport.sendMail(mailOptions, function(err) {
-  	if (err) {
-      console.log("there was an error: ", err);
-    } else {
-      console.log("Email sent");
-    }
-	});
+  //With promise
+  sg.API(request)
+    .then(response => {
+      console.log(response.statusCode);
+      console.log(response.body);
+      console.log(response.headers);
+    })
+    .catch(error => {
+      //error is an instance of SendGridError
+      //The full response is attached to error.response
+      console.log(error.response.statusCode);
+    });
 };
 
 const createCandidates = () => {
@@ -372,21 +417,29 @@ const sendJobs = (candidatesArray, typeOfReq) => {
 
         // construct jobURL
         let jobURL = `http://www.jobs2careers.com/click.php?id=${jobToSend.id}.${PUBLISHER_ID}`;
+        bitly.shorten(jobURL)
+          .then(function(response) {
+            var short_url = response.data.url
 
-        let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${jobURL}`;
-        // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
+            let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${short_url}`;
+            console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
 
-        if (typeOfReq === 'sms') {
-          // send the actual SMS here
+            if (typeOfReq === 'sms') {
+              // send the actual SMS here
 
-          sendPlivoSMS(candidate.phone, messageToSend);
-        } else if (typeOfReq === 'email') {
-          // send the email
-          // if (candidate.email === 'marcushurney@gmail.com' || candidate.email === 'jennifer@gethappie.me') {
-          //   sendEmail(candidate.firstName, candidate.email, jobURL);
-          // }
-          sendEmail(candidate.firstName, candidate.email, jobURL);
-        }
+              sendPlivoSMS(candidate.phone, messageToSend);
+            } else if (typeOfReq === 'email') {
+              // send the email
+              // if (candidate.email === 'marcushurney@gmail.com' || candidate.email === 'jennifer@gethappie.me') {
+              //   sendEmail(candidate.firstName, candidate.email, jobURL);
+              // }
+              sendEmail(candidate.firstName, candidate.email, jobURL);
+            }
+          }, function(error) {
+            throw error;
+          });
+
+
 
 
         // JOB HAS BEEN SENT, NOW TRACK THE JOB

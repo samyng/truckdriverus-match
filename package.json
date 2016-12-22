@@ -16,6 +16,7 @@
     "axios": "^0.10.0",
     "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.3.0",
+    "bitly": "^4.1.1",
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",
     "crypto": "0.0.3",
@@ -24,7 +25,6 @@
     "jquery": "^3.1.1",
     "jwt-simple": "^0.5.0",
     "lodash": "^3.10.1",
-    "underscore": "^1.8.3",
     "mongoose": "^4.4.8",
     "morgan": "^1.7.0",
     "multer": "^1.2.0",
@@ -41,7 +41,9 @@
     "redux": "^3.0.4",
     "redux-form": "^5.1.1",
     "redux-thunk": "^2.0.1",
+    "sendgrid": "^4.7.1",
     "toastr": "^2.1.2",
+    "underscore": "^1.8.3",
     "validator": "^6.0.0"
   },
   "devDependencies": {
