@@ -19,9 +19,8 @@ const _ = require('underscore');
 const async = require('async');
 
 // import and create bitly object
-const Bitly = require('bitly');
-const bitly = new Bitly('853d0d686f928c7c163c816da8c05ad5e9aff7a0');
-
+// const Bitly = require('bitly');
+// const bitly = new Bitly('YOUR_BITLY_API_KEY_HERE');
 
 
 //Express App Setup
@@ -417,29 +416,48 @@ const sendJobs = (candidatesArray, typeOfReq) => {
 
         // construct jobURL
         let jobURL = `http://www.jobs2careers.com/click.php?id=${jobToSend.id}.${PUBLISHER_ID}`;
-        bitly.shorten(jobURL)
-          .then(function(response) {
-            console.log(response);
-            var short_url = response.data.url
-            // console.log(jobURL);
-            // console.log(short_url);
-            let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${short_url}`;
-            // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
 
-            if (typeOfReq === 'sms') {
-              // send the actual SMS here
+        // send message without bitly START
 
-              sendPlivoSMS(candidate.phone, messageToSend);
-            } else if (typeOfReq === 'email') {
-              // send the email
-              // if (candidate.email === 'marcushurney@gmail.com' || candidate.email === 'jennifer@gethappie.me') {
-              //   sendEmail(candidate.firstName, candidate.email, jobURL);
-              // }
-              sendEmail(candidate.firstName, candidate.email, jobURL);
-            }
-          }, function(error) {
-            throw error;
-          });
+        let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${jobURL}`;
+        // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
+
+        if (typeOfReq === 'sms') {
+          // send the actual SMS here
+
+          sendPlivoSMS(candidate.phone, messageToSend);
+        } else if (typeOfReq === 'email') {
+          // send the email
+          // if (candidate.email === 'marcushurney@gmail.com' || candidate.email === 'jennifer@gethappie.me') {
+          //   sendEmail(candidate.firstName, candidate.email, jobURL);
+          // }
+          sendEmail(candidate.firstName, candidate.email, jobURL);
+        }
+
+        // send message with BITLY START
+        // bitly.shorten(jobURL)
+        //   .then(function(response) {
+        //     console.log(response);
+        //     var short_url = response.data.url
+        //     // console.log(jobURL);
+        //     // console.log(short_url);
+        //     let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${short_url}`;
+        //     // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
+        //
+        //     if (typeOfReq === 'sms') {
+        //       // send the actual SMS here
+        //
+        //       sendPlivoSMS(candidate.phone, messageToSend);
+        //     } else if (typeOfReq === 'email') {
+        //       // send the email
+        //       // if (candidate.email === 'marcushurney@gmail.com' || candidate.email === 'jennifer@gethappie.me') {
+        //       //   sendEmail(candidate.firstName, candidate.email, jobURL);
+        //       // }
+        //       sendEmail(candidate.firstName, candidate.email, jobURL);
+        //     }
+        //   }, function(error) {
+        //     throw error;
+        //   });
 
 
 

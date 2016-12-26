@@ -30739,7 +30739,7 @@
 					_react2.default.createElement(
 						_reactRouter.Link,
 						{ to: '/', className: 'navbar-brand' },
-						'Happie Match and Mail'
+						'Truck Driver US - Match'
 					),
 					_react2.default.createElement(
 						'ul',
@@ -43501,46 +43501,9 @@
 
 	  _createClass(Feature, [{
 	    key: 'handleFileSelect',
-
-
-	    // componentWillMount() {
-	    //   console.log("componentWillMount: ", this.state);
-	    // }
-	    //
-	    // componentDidMount() {
-	    //   console.log("componentDidMount: ", this.state);
-	    //   if (document.getElementById("userFile").files.length > 0) {
-	    //     this.setState({ fileSelected: true });
-	    //   }
-	    // }
-
 	    value: function handleFileSelect() {
 	      this.setState({ fileSelected: true });
 	    }
-
-	    // handleSubmit(event) {
-	    // event.preventDefault();
-	    // var csvToSend = document.getElementById("userFile").files[0];
-	    //   console.log(csvToSend);
-	    //   axios.post("/", csvToSend);
-	    // }
-
-	    // handleSubmit(event) {
-	    //   event.preventDefault();
-	    //   var csvToSend = document.getElementById("userFile").files[0];
-	    //
-	    //   const success = () => {
-	    //     console.log("success");
-	    //   };
-	    //
-	    //   $.ajax({
-	    //       type: "POST",
-	    //       url: 'http://localhost:3000/',
-	    //       data: csvToSend,
-	    //       success: success
-	    //   });
-	    // }
-
 	  }, {
 	    key: 'sendSMS',
 	    value: function sendSMS() {
@@ -43622,7 +43585,7 @@
 	            _react2.default.createElement(
 	              'h6',
 	              null,
-	              'To upload save new candidates, follow the ',
+	              'To upload and save new candidates, follow the ',
 	              _react2.default.createElement(
 	                'span',
 	                { className: 'green_span' },

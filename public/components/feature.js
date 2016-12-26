@@ -12,43 +12,9 @@ export default class Feature extends Component {
     emailsSent: false
   };
 
-  // componentWillMount() {
-  //   console.log("componentWillMount: ", this.state);
-  // }
-  //
-  // componentDidMount() {
-  //   console.log("componentDidMount: ", this.state);
-  //   if (document.getElementById("userFile").files.length > 0) {
-  //     this.setState({ fileSelected: true });
-  //   }
-  // }
-
   handleFileSelect() {
     this.setState({ fileSelected: true });
   }
-
-  // handleSubmit(event) {
-    // event.preventDefault();
-    // var csvToSend = document.getElementById("userFile").files[0];
-  //   console.log(csvToSend);
-  //   axios.post("/", csvToSend);
-  // }
-
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   var csvToSend = document.getElementById("userFile").files[0];
-  //
-  //   const success = () => {
-  //     console.log("success");
-  //   };
-  //
-  //   $.ajax({
-  //       type: "POST",
-  //       url: 'http://localhost:3000/',
-  //       data: csvToSend,
-  //       success: success
-  //   });
-  // }
 
   sendSMS() {
     axios.post("/sendSMS")
