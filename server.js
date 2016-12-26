@@ -15,13 +15,13 @@ const path = require('path');
 const http = require('http');
 const axios = require('axios');
 const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
-const nodemailer = require('nodemailer'); // may need to remove this
 const _ = require('underscore');
 const async = require('async');
 
 // import and create bitly object
 const Bitly = require('bitly');
 const bitly = new Bitly('853d0d686f928c7c163c816da8c05ad5e9aff7a0');
+
 
 
 //Express App Setup
@@ -204,8 +204,8 @@ const sendPlivoSMS = (number, message) => {
       'dst' : `+1${number}`,
       'text' : message
     };
-    totalMessages++;
-    console.log(params);
+
+    // console.log(message);
     p.send_message(params, function (status, response) {
       console.log('Status: ', status);
       console.log('API Response:\n', response);
@@ -419,10 +419,12 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         let jobURL = `http://www.jobs2careers.com/click.php?id=${jobToSend.id}.${PUBLISHER_ID}`;
         bitly.shorten(jobURL)
           .then(function(response) {
+            console.log(response);
             var short_url = response.data.url
-
+            // console.log(jobURL);
+            // console.log(short_url);
             let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${short_url}`;
-            console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
+            // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
 
             if (typeOfReq === 'sms') {
               // send the actual SMS here
@@ -466,8 +468,12 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         console.log(err);
         reject(err);
       } else {
+        let total = 0;
+        jobsSent.map(job => {
+          total += job.sent;
+        });
+        console.log("Here is the total number of jobs sent ", total);
         console.log(jobsSent);
-        console.log('Total messages sent: ' + totalMessages);
         resolve();
       }
     });
