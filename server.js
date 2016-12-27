@@ -419,7 +419,7 @@ const sendJobs = (candidatesArray, typeOfReq) => {
 
         // send message without bitly START
 
-        let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${jobURL}`;
+        let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. You look like a great fit for this role - are you interested? ${jobURL}`;
         // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
 
         if (typeOfReq === 'sms') {
