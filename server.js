@@ -237,8 +237,7 @@ const sendEmail = (firstName, email, jobURL) => {
                     <p>Hi ${firstName},</p>
                     <br/>
                     <p>
-                      My name is Tiffany. I found your profile online and you look like a
-                      great fit for this role - are you interested?
+                      My name is Tiffany. I work with Truck Driver US to connect drivers with jobs they're interested in. I'm happy to send you a new job link daily. Here is the one for today - are you interested?
                       ${jobURL}
                     </p>
                     <br/>
@@ -246,8 +245,10 @@ const sendEmail = (firstName, email, jobURL) => {
                     <p>Tiffany</p>
                     <br/>
                     <p>--</p>
-                    <p>Tiffany Hall</p>
-                    <p><a href="https://www.truckdriverus.com/">Truck Driver US</a></p>
+                    <p>Tiffany Hall
+                    <br/>
+                    <a href="https://www.truckdriverus.com/">Truck Driver US</a>
+                    </p>
                   </html>`
         },
       ],
@@ -284,12 +285,12 @@ const createCandidates = () => {
   // }
 
   const candidate = new Candidate();
-  candidate.firstName = 'Marcus';
-  candidate.lastName = 'Hurney';
-  candidate.email = 'marcushurney@gmail.com';
-  candidate.state = 'GA';
+  candidate.firstName = 'Sam';
+  candidate.lastName = 'Yang';
+  candidate.email = 'samantha@gethappie.me';
+  candidate.state = 'MO';
   // remove dashes from candidate's phone number before saving
-  candidate.phone = '7064834776';
+  candidate.phone = '3147950323';
   candidate.save();
 
   // let candidate = new Candidate();
@@ -329,7 +330,7 @@ const createCandidates = () => {
 
 const FEED_URL = 'http://api.jobs2careers.com/api/search.php?id=2538&pass=v9NloGlKCT8SwVeb&ip=2601:c0:c100:2bc:9902:4667:1173:86ed&q=&l=USA&industry=Trucking&format=json&limit=200';
 const PUBLISHER_ID = '2595';
-const MAX_MESSAGE_LIMIT = 50;
+const MAX_MESSAGE_LIMIT = 200;
 let jobs = [];
 let matchingClients = [];
 
@@ -419,7 +420,7 @@ const sendJobs = (candidatesArray, typeOfReq) => {
 
         // send message without bitly START
 
-        let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. You look like a great fit for this role - are you interested? ${jobURL}`;
+        let messageToSend =  `Hi ${candidate.firstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${jobURL}`;
         // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
 
         if (typeOfReq === 'sms') {
