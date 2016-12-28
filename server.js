@@ -111,6 +111,7 @@ app.post('/updateCandidates', function(req, res, next) {
 });
 
 app.post('/sendSMS', function(req, res, next) {
+  // this is where to change code when switching from API feed to XML later. See below for email. - SY
   axios.get(FEED_URL)
     .then(data => {
       jobs = data.data.jobs;
@@ -128,6 +129,7 @@ app.post('/sendSMS', function(req, res, next) {
 });
 
 app.post('/sendEmails', function(req, res, next) {
+  // this is where to change code when switching from API feed to XML later. See above for SMS. - SY
   axios.get(FEED_URL)
     .then(data => {
       jobs = data.data.jobs;
@@ -198,6 +200,7 @@ const selectJobsLessThanMax = (candidatesJobs, jobsSent, max) => {
 };
 
 const sendPlivoSMS = (number, message) => {
+  // this is where to change the number from Plivo - SY
     var params = {
       'src': '+18555293620',
       'dst' : `+1${number}`,
@@ -487,6 +490,7 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         jobsSent.map(job => {
           total += job.sent;
         });
+        // log the match results out to the console. Format is Job ID:number of times sent. - SY
         console.log("Here is the total number of jobs sent ", total);
         console.log(jobsSent);
         resolve();
