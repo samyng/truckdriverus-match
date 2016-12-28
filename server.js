@@ -240,8 +240,9 @@ const sendEmail = (firstName, email, jobURL) => {
                       <br/><br/><a href=${jobURL}>Daily job link from Truck Driver US</a>
                     </p>
                     <p>Thanks!<br/>
-                    Tiffany<br/><br/><br/>
-                    --<br/>
+                    Tiffany<br/>
+                    </p>
+                    <p><br/>--<br/>
                     Tiffany Hall<br/>
                     <a href="http://www.truckdriverus.com/">Truck Driver US</a>
                     </p>
