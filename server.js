@@ -235,19 +235,19 @@ const sendEmail = (firstName, email, jobURL) => {
           type: 'text/html',
           value: `<html>
                     <p>Hi ${firstName},</p>
-                    <br/>
                     <p>
-                      My name is Tiffany. I work with Truck Driver US to connect drivers with jobs they're interested in. I'm happy to send you a new job link daily. Here is the one for today - are you interested?
-                      <a href=${jobURL}>Truck Driver US job link</a>
+                      My name is Tiffany. I work with Truck Driver US to connect drivers with jobs they're interested in. I'm happy to send you a new job link daily.
+                      <br/>
+                      Here is the one for today - are you interested?
+                      <a href=${jobURL}>Daily job link from Truck Driver US</a>
                     </p>
                     <br/>
                     <p>Thanks!</p>
                     <p>Tiffany</p>
-                    <br/>
                     <p>--</p>
                     <p>Tiffany Hall
                     <br/>
-                    <a href="https://www.truckdriverus.com/">Truck Driver US</a>
+                    <a href="http://www.truckdriverus.com/">Truck Driver US</a>
                     </p>
                   </html>`
         },
