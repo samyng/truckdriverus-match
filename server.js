@@ -238,7 +238,7 @@ const sendEmail = (firstName, email, jobURL) => {
                     <br/>
                     <p>
                       My name is Tiffany. I work with Truck Driver US to connect drivers with jobs they're interested in. I'm happy to send you a new job link daily. Here is the one for today - are you interested?
-                      ${jobURL}
+                      <a href=${jobURL}>Truck Driver US job link</a>
                     </p>
                     <br/>
                     <p>Thanks!</p>
