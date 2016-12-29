@@ -214,7 +214,7 @@ const sendPlivoSMS = (number, message) => {
     });
 };
 
-const sendEmail = (firstName, email, jobURL) => {
+const sendEmail = (firstName = '', email, jobURL) => {
   var request = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
@@ -418,8 +418,18 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         let jobURL = `http://www.jobs2careers.com/click.php?id=${jobToSend.id}.${PUBLISHER_ID}`;
 
         // send message without bitly START
+	
+	// make sure candidate.firstName is not undefined
+        let candidateFirstName;
+        if (candidate.firstName == undefined) {
+          // assign empty string so message looks natural;
+          candidateFirstName = '';
+        } else {
+          // candidate.firstName exists, so continue
+          candidateFirstName = candidate.firstName;
+        }
 
-        let messageToSend =  `Hi ${candidate.firstName}! I work with Truck Driver US to connect drivers with jobs. Here is one that may be perfect for you ${jobURL}`;
+        let messageToSend =  `Hi ${candidateFirstName}! I work with Truck Driver US to connect drivers with jobs. Here is one that may be perfect for you ${jobURL}`;
         // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
 
         if (typeOfReq === 'sms') {
