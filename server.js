@@ -94,7 +94,7 @@ SERVER.listen(PORT, function() {
 	console.log('Server listening on port:', PORT);
 });
 
-// application logic
+// application logic, route definitions
 
 app.post('/', upload.single('userFile'), function(req, res, next) {
   res.sendFile(__dirname + '/public/index.html');
@@ -111,10 +111,9 @@ app.post('/updateCandidates', function(req, res, next) {
 });
 
 app.post('/sendSMS', function(req, res, next) {
-  // this is where to change code when switching from API feed to XML later. See below for email. - SY
   axios.get(FEED_URL)
     .then(data => {
-      jobs = data.data.jobs;
+      let jobs = data.data.jobs;
       fetchClients(jobs, 'sms').then(() => {
         res.sendStatus(200);
       })
@@ -129,16 +128,15 @@ app.post('/sendSMS', function(req, res, next) {
 });
 
 app.post('/sendEmails', function(req, res, next) {
-  // this is where to change code when switching from API feed to XML later. See above for SMS. - SY
   axios.get(FEED_URL)
     .then(data => {
-      jobs = data.data.jobs;
+      let jobs = data.data.jobs;
       fetchClients(jobs, 'email').then(() => {
         res.sendStatus(200);
       })
       .catch((err) => {
         console.log(err);
-        res.sendStatus(400);
+        res.status(404).json(err);
       })
     })
     .catch(error => {
@@ -199,22 +197,27 @@ const selectJobsLessThanMax = (candidatesJobs, jobsSent, max) => {
   return jobsThatPass;
 };
 
+
+
+let totalSMSSent = 0;
+
 const sendPlivoSMS = (number, message) => {
-  // this is where to change the number from Plivo - SY
     var params = {
       'src': '+18555293620',
       'dst' : `+1${number}`,
       'text' : message
     };
 
-    // console.log(message);
     p.send_message(params, function (status, response) {
+      totalSMSSent++;
+      console.log("Here are the total SMS sent: ", totalSMSSent);
       console.log('Status: ', status);
       console.log('API Response:\n', response);
     });
 };
-
+let totalEmails = 0;
 const sendEmail = (firstName = '', email, jobURL) => {
+
   var request = sg.emptyRequest({
     method: 'POST',
     path: '/v3/mail/send',
@@ -238,23 +241,28 @@ const sendEmail = (firstName = '', email, jobURL) => {
           type: 'text/html',
           value: `<html>
                     <p>Hi ${firstName},</p>
+                    <br/>
                     <p>
-                      My name is Tiffany. I work with Truck Driver US to connect drivers with jobs they're interested in. I'm happy to send you a new job link daily. Here is the one for today - are you interested? <a href=${jobURL}>Daily job link from Truck Driver US</a>
+                      My name is Tiffany. I found your profile online and you look like a
+                      great fit for this role - are you interested?
+                      ${jobURL}
                     </p>
-                    <p>Thanks!<br/>
-                    Tiffany<br/>
-                    </p>
-                    <p><br/>--<br/>
-                    Tiffany Hall<br/>
-                    <a href="http://www.truckdriverus.com/">Truck Driver US</a>
-                    </p>
+                    <br/>
+                    <p>Thanks!</p>
+                    <p>Tiffany</p>
+                    <br/>
+                    <p>--</p>
+                    <p>Tiffany Hall</p>
+                    <p><a href="https://www.truckdriverus.com/">Truck Driver US</a></p>
                   </html>`
         },
       ],
     },
   });
 
-  //With promise
+  // Access SendGrid API to send request
+  totalEmails++;
+  console.log('Here are the total number of emails ', totalEmails);
   sg.API(request)
     .then(response => {
       console.log(response.statusCode);
@@ -284,12 +292,12 @@ const createCandidates = () => {
   // }
 
   const candidate = new Candidate();
-  candidate.firstName = 'Sam';
-  candidate.lastName = 'Yang';
-  candidate.email = 'samantha@gethappie.me';
-  candidate.state = 'MO';
+  candidate.firstName = 'Marcus';
+  candidate.lastName = 'Hurney';
+  candidate.email = 'marcushurney@gmail.com';
+  candidate.state = 'GA';
   // remove dashes from candidate's phone number before saving
-  candidate.phone = '3147950323';
+  candidate.phone = '7064834776';
   candidate.save();
 
   // let candidate = new Candidate();
@@ -310,7 +318,7 @@ const createCandidates = () => {
   // candidate.phone = '7707898369';
   // candidate.save();
 };
-
+//
 // createCandidates();
 
 // below, this could be turned into a test
@@ -329,7 +337,7 @@ const createCandidates = () => {
 
 const FEED_URL = 'http://api.jobs2careers.com/api/search.php?id=2538&pass=v9NloGlKCT8SwVeb&ip=2601:c0:c100:2bc:9902:4667:1173:86ed&q=&l=USA&industry=Trucking&format=json&limit=200';
 const PUBLISHER_ID = '2595';
-const MAX_MESSAGE_LIMIT = 10000;
+const MAX_MESSAGE_LIMIT = 50;
 let jobs = [];
 let matchingClients = [];
 
@@ -418,8 +426,8 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         let jobURL = `http://www.jobs2careers.com/click.php?id=${jobToSend.id}.${PUBLISHER_ID}`;
 
         // send message without bitly START
-	
-	// make sure candidate.firstName is not undefined
+
+        // make sure candidate.firstName is not undefined
         let candidateFirstName;
         if (candidate.firstName == undefined) {
           // assign empty string so message looks natural;
@@ -429,18 +437,15 @@ const sendJobs = (candidatesArray, typeOfReq) => {
           candidateFirstName = candidate.firstName;
         }
 
-        let messageToSend =  `Hi ${candidateFirstName}! I work with Truck Driver US to connect drivers with jobs. Here is one that may be perfect for you ${jobURL}`;
+        // defines the content of the sms
+        let messageToSend =  `Hi ${candidateFirstName}! My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested? ${jobURL}`;
         // console.log(`You sent a message to ${candidate.firstName} ${candidate.lastName}. He/She lives in ${candidate.state}`);
 
         if (typeOfReq === 'sms') {
           // send the actual SMS here
-
           sendPlivoSMS(candidate.phone, messageToSend);
         } else if (typeOfReq === 'email') {
-          // send the email
-          // if (candidate.email === 'marcushurney@gmail.com' || candidate.email === 'jennifer@gethappie.me') {
-          //   sendEmail(candidate.firstName, candidate.email, jobURL);
-          // }
+
           sendEmail(candidate.firstName, candidate.email, jobURL);
         }
 
@@ -468,9 +473,6 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         //   }, function(error) {
         //     throw error;
         //   });
-
-
-
 
         // JOB HAS BEEN SENT, NOW TRACK THE JOB
 
@@ -500,8 +502,8 @@ const sendJobs = (candidatesArray, typeOfReq) => {
         jobsSent.map(job => {
           total += job.sent;
         });
-        // log the match results out to the console. Format is Job ID:number of times sent. - SY
-        console.log("Here is the total number of jobs sent ", total);
+        console.log("Here is the total number of jobs matched ", total);
+        // console.log("Here are the total messages sent via Plivo ", totalSMSSent);
         console.log(jobsSent);
         resolve();
       }
@@ -548,6 +550,7 @@ const readCSV = () => {
           // }
 
           const candidate = new Candidate();
+
           candidate.firstName = person['First Name'];
           candidate.lastName = person['Last Name'];
           candidate.email = person['Email'];
