@@ -381,7 +381,7 @@ const createCandidates = () => {
 
 
 const PUBLISHER_ID = '2595';
-const MAX_MESSAGE_LIMIT = 50;
+const MAX_MESSAGE_LIMIT = 5000;
 let matchedCandidates = [];
 
 const matchCandidates = (allJobs, typeOfReq) => {
