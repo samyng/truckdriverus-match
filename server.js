@@ -298,7 +298,7 @@ const sendEmail = (firstName = '', email, jobURL) => {
                     <p><a href="https://www.truckdriverus.com/">Truck Driver US</a></p>
                     <br/><br/>
                     <p>TruckDriverUs.com, 620 Massachusetts Avenue, First Floor, Cambridge, MA 02129 USA</p>
-                    <p>To unsubscribe, please reply to this email letting us know.</p>
+                    <p>To unsubscribe, please reply to this email with the word 'unsubscribe'.</p>
                   </html>`
         },
       ],
