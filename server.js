@@ -283,20 +283,17 @@ const sendEmail = (firstName = '', email, jobURL) => {
           type: 'text/html',
           value: `<html>
                     <p>${firstName},</p>
-                    <br/>
                     <p>
                       Here's another job that you're a great match for. Click here to take a look!
                       <br/><br/><a href=${jobURL}>Job link from Truck Driver US</a>
                     </p>
                     <p>Thanks!<br/>
                     Tiffany</p>
-                    <br/>
                     <p><br/>--<br/>
                     Tiffany Hall<br/>
                     <a href="https://www.truckdriverus.com/">Truck Driver US</a>
                     </p>
-                    <br/><br/>
-                    <p>TruckDriverUs.com, 620 Massachusetts Avenue, First Floor, Cambridge, MA 02129 USA</p>
+                    <p><br/><br/>TruckDriverUs.com, 620 Massachusetts Avenue, First Floor, Cambridge, MA 02129 USA</p>
                     <p>To unsubscribe, please reply to this email with the word 'unsubscribe'.</p>
                   </html>`
         },
