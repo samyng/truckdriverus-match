@@ -271,7 +271,7 @@ const sendEmail = (firstName = '', email, jobURL) => {
               email: email,
             },
           ],
-          subject: 'Interested in a new role?',
+          subject: 'Check this one out',
         },
       ],
       from: {
@@ -282,20 +282,19 @@ const sendEmail = (firstName = '', email, jobURL) => {
         {
           type: 'text/html',
           value: `<html>
-                    <p>Hi ${firstName},</p>
+                    <p>${firstName},</p>
                     <br/>
                     <p>
-                      My name is Tiffany. I found your profile online and you look like a
-                      great fit for this role - are you interested?
-                      ${jobURL}
+                      Here's another job that you're a great match for. Click here to take a look!
+                      <br/><br/><a href=${jobURL}>Job link from Truck Driver US</a>
                     </p>
+                    <p>Thanks!<br/>
+                    Tiffany</p>
                     <br/>
-                    <p>Thanks!</p>
-                    <p>Tiffany</p>
-                    <br/>
-                    <p>--</p>
-                    <p>Tiffany Hall</p>
-                    <p><a href="https://www.truckdriverus.com/">Truck Driver US</a></p>
+                    <p><br/>--<br/>
+                    Tiffany Hall<br/>
+                    <a href="https://www.truckdriverus.com/">Truck Driver US</a>
+                    </p>
                     <br/><br/>
                     <p>TruckDriverUs.com, 620 Massachusetts Avenue, First Floor, Cambridge, MA 02129 USA</p>
                     <p>To unsubscribe, please reply to this email with the word 'unsubscribe'.</p>
