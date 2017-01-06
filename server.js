@@ -282,9 +282,9 @@ const sendEmail = (firstName = '', email, jobURL) => {
         {
           type: 'text/html',
           value: `<html>
-                    <p>${firstName},</p>
+                    <p>Hi ${firstName},</p>
                     <p>
-                      Here's another job that you're a great match for. Click here to take a look!
+                      My name is Tiffany. I found your profile online and you look like a great fit for this role - are you interested?
                       <br/><br/><a href=${jobURL}>Job link from Truck Driver US</a>
                     </p>
                     <p>Thanks!<br/>
@@ -296,6 +296,21 @@ const sendEmail = (firstName = '', email, jobURL) => {
                     <p><br/><br/>TruckDriverUs.com, 620 Massachusetts Avenue, First Floor, Cambridge, MA 02129 USA</p>
                     <p>To unsubscribe, please reply to this email with the word 'unsubscribe'.</p>
                   </html>`
+          // value: `<html>
+          //           <p>${firstName},</p>
+          //           <p>
+          //             Here's another job that you're a great match for. Click here to take a look!
+          //             <br/><br/><a href=${jobURL}>Job link from Truck Driver US</a>
+          //           </p>
+          //           <p>Thanks!<br/>
+          //           Tiffany</p>
+          //           <p><br/>--<br/>
+          //           Tiffany Hall<br/>
+          //           <a href="https://www.truckdriverus.com/">Truck Driver US</a>
+          //           </p>
+          //           <p><br/><br/>TruckDriverUs.com, 620 Massachusetts Avenue, First Floor, Cambridge, MA 02129 USA</p>
+          //           <p>To unsubscribe, please reply to this email with the word 'unsubscribe'.</p>
+          //         </html>`
         },
       ],
     },
@@ -333,12 +348,12 @@ const createCandidates = () => {
   // }
 
   const candidate = new Candidate();
-  candidate.firstName = 'Marcus';
-  candidate.lastName = 'Hurney';
-  candidate.email = 'marcushurney@gmail.com';
-  candidate.state = 'GA';
+  candidate.firstName = 'Sam';
+  candidate.lastName = 'Yang';
+  candidate.email = 'syangam@gmail.com';
+  candidate.state = 'MO';
   // remove dashes from candidate's phone number before saving
-  candidate.phone = '7064834776';
+  candidate.phone = '3147950323';
   candidate.save();
 
   // let candidate = new Candidate();
@@ -377,7 +392,7 @@ const createCandidates = () => {
 
 
 const PUBLISHER_ID = '2595';
-const MAX_MESSAGE_LIMIT = 5000;
+const MAX_MESSAGE_LIMIT = 10000;
 let matchedCandidates = [];
 
 const matchCandidates = (allJobs, typeOfReq) => {
