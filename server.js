@@ -101,7 +101,7 @@ app.post('/updateCandidates', function(req, res, next) {
     });
 });
 
-const FEED_URL = 'http://api.jobs2careers.com/api/search.php?id=2538&pass=v9NloGlKCT8SwVeb&ip=2601:c0:c100:2bc:9902:4667:1173:86ed&q=&l=USA&industry=diesel+mechanics&format=json&limit=200';
+const FEED_URL = 'http://api.jobs2careers.com/api/search.php?id=2538&pass=v9NloGlKCT8SwVeb&ip=2601:c0:c100:2bc:9902:4667:1173:86ed&q=&l=USA&industry=diesel+mechanic&format=json&limit=200';
 app.post('/sendSMS', function(req, res, next) {
   axios.get(FEED_URL)
     .then(data => {
