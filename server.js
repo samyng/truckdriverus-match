@@ -271,7 +271,7 @@ const sendEmail = (firstName = '', email, jobURL) => {
               email: email,
             },
           ],
-          subject: 'Check this one out',
+          subject: 'Interested in a new role?',
         },
       ],
       from: {
