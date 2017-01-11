@@ -285,6 +285,7 @@ const sendEmail = (firstName = '', email, jobURL) => {
                     <p>${firstName},</p>
                     <p>
                       Here's another job that you're a great match for. Click here to take a look!
+                      ${jobURL}
                       <br/><br/><a href=${jobURL}>Job link from Truck Driver US</a>
                     </p>
                     <p>Thanks!<br/>
